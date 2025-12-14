@@ -1,57 +1,322 @@
-/* Import shared styles */
-@import './HotelFinder.css';
+.transport-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--space-8) var(--space-6);
+}
 
-/* Transport-specific styles */
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-8);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+
+.module-header h1 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+}
+
+.module-subtitle {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Transport Tabs */
 .transport-tabs {
     display: flex;
-    gap: 12px;
-    margin-bottom: 32px;
-    background: white;
-    padding: 8px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+    border-bottom: 2px solid var(--border-light);
 }
 
 .transport-tab {
-    flex: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 20px;
-    border: none;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
     background: transparent;
-    border-radius: 8px;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-secondary);
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 500;
-    color: #4a5568;
+    transition: all var(--transition-fast);
+    margin-bottom: -2px;
 }
 
 .transport-tab:hover {
-    background: #f7fafc;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
 }
 
 .transport-tab.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    background: transparent;
 }
 
-.tab-icon {
-    font-size: 1.5rem;
+/* Search Criteria */
+.search-criteria {
+    background: var(--bg-primary);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
+    margin-bottom: var(--space-8);
 }
 
-.tab-label {
-    font-size: 1rem;
+.search-criteria h3 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
 }
 
+.criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+}
+
+.criteria-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.criteria-label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--text-secondary);
+}
+
+.criteria-value {
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+}
+
+/* Results Section */
+.results-section {
+    margin-top: var(--space-8);
+}
+
+.results-header {
+    margin-bottom: var(--space-6);
+}
+
+.results-header h3 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+}
+
+.results-note {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Transport Grid */
+.transport-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: var(--space-6);
+}
+
+.transport-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
+    padding: var(--space-6);
+    transition: all var(--transition-base);
+}
+
+.transport-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Transport Header */
+.transport-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--border-light);
+    gap: var(--space-4);
+}
+
+.airline-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex: 1;
+}
+
+.transport-icon {
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.airline-info h4 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    margin: 0 0 var(--space-1) 0;
+}
+
+.transport-type {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    font-weight: var(--font-medium);
+}
+
+.price-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-1);
+}
+
+.price-label {
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+}
+
+.price-amount {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+}
+
+/* Transport Route */
+.transport-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+    gap: var(--space-4);
+}
+
+.route-point {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    flex: 1;
+}
+
+.route-point svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.route-city {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-1);
+}
+
+.route-time {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+}
+
+.route-duration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    flex-shrink: 0;
+}
+
+.route-duration svg {
+    color: var(--text-secondary);
+}
+
+.route-duration span {
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+/* Transport Footer */
+.transport-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border-light);
+    gap: var(--space-4);
+}
+
+.total-price {
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+}
+
+.passenger-count {
+    font-size: var(--text-sm);
+    font-weight: var(--font-normal);
+    color: var(--text-secondary);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
+    .transport-grid {
+        grid-template-columns: 1fr;
+    }
+
     .transport-tabs {
-        flex-direction: column;
+        flex-wrap: wrap;
     }
 
     .transport-tab {
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+    }
+
+    .criteria-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .transport-route {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .route-duration {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .transport-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .transport-footer .btn {
         width: 100%;
     }
 }
