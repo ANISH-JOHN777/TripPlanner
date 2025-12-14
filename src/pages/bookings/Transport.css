@@ -1,0 +1,57 @@
+/* Import shared styles */
+@import './HotelFinder.css';
+
+/* Transport-specific styles */
+.transport-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    background: white;
+    padding: 8px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.transport-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 20px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.transport-tab:hover {
+    background: #f7fafc;
+}
+
+.transport-tab.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.tab-icon {
+    font-size: 1.5rem;
+}
+
+.tab-label {
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .transport-tabs {
+        flex-direction: column;
+    }
+
+    .transport-tab {
+        width: 100%;
+    }
+}

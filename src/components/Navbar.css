@@ -1,0 +1,175 @@
+.navbar {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.navbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+}
+
+/* Brand */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: transform var(--transition-fast);
+}
+
+.navbar-brand:hover {
+    transform: scale(1.02);
+}
+
+.brand-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 4px rgba(79, 70, 229, 0.2));
+}
+
+.brand-name {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Navigation Links */
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: var(--font-medium);
+    font-size: var(--text-sm);
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.nav-link:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.nav-link.active {
+    background: var(--color-primary);
+    color: var(--text-inverse);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-link.active::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: var(--color-primary);
+    border-radius: var(--radius-full);
+}
+
+.nav-icon {
+    font-size: 1.15rem;
+}
+
+.nav-label {
+    font-size: var(--text-sm);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+    .navbar-container {
+        padding: 0 var(--space-4);
+    }
+
+    .navbar-links {
+        gap: var(--space-1);
+    }
+
+    .nav-link {
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--text-xs);
+    }
+
+    .nav-icon {
+        font-size: 1rem;
+    }
+
+    .nav-label {
+        display: none;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .navbar {
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        width: 100%;
+        border-top: 1px solid var(--border-light);
+        border-bottom: none;
+    }
+
+    .navbar-container {
+        height: auto;
+        flex-direction: column;
+        padding: var(--space-3);
+        gap: var(--space-3);
+    }
+
+    .navbar-brand {
+        display: none;
+    }
+
+    .navbar-links {
+        width: 100%;
+        justify-content: space-around;
+        gap: var(--space-2);
+    }
+
+    .nav-link {
+        flex-direction: column;
+        padding: var(--space-2);
+        gap: var(--space-1);
+        flex: 1;
+        max-width: 80px;
+    }
+
+    .nav-icon {
+        font-size: 1.25rem;
+    }
+
+    .nav-label {
+        display: block;
+        font-size: 0.65rem;
+    }
+
+    /* Add padding to app-main to account for fixed bottom navbar */
+    .app-main {
+        padding-bottom: 80px;
+    }
+}
