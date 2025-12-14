@@ -1,5 +1,6 @@
 import { useTripContext } from '../context/TripContext';
 import { Navigate, Link } from 'react-router-dom';
+import { Bot, Backpack, Shield, Siren, MessageCircle, BookOpen, Sparkles, ArrowRight } from 'lucide-react';
 import './SmartTools.css';
 
 const SmartTools = () => {
@@ -10,7 +11,7 @@ const SmartTools = () => {
         return (
             <div className="smart-tools-page">
                 <div className="no-trip-message">
-                    <div className="message-icon">🤖</div>
+                    <div className="message-icon"><Bot size={64} /></div>
                     <h2>No Active Trip</h2>
                     <p>You need to create a trip first to use Smart Tools & AI features.</p>
                     <Link to="/trip-creator" className="btn btn-primary btn-large">
@@ -25,7 +26,7 @@ const SmartTools = () => {
         {
             id: 'packing',
             title: 'Packing List',
-            icon: '🎒',
+            icon: Backpack,
             description: 'AI-generated packing list for your trip',
             path: '/smart-tools/packing',
             color: '#667eea',
@@ -33,7 +34,7 @@ const SmartTools = () => {
         {
             id: 'safety',
             title: 'Safety Alerts',
-            icon: '🛡️',
+            icon: Shield,
             description: 'Safety tips and alerts for your destination',
             path: '/smart-tools/safety',
             color: '#f56565',
@@ -41,7 +42,7 @@ const SmartTools = () => {
         {
             id: 'emergency',
             title: 'Emergency Help',
-            icon: '🚨',
+            icon: Siren,
             description: 'Emergency contacts and assistance',
             path: '/smart-tools/emergency',
             color: '#ed8936',
@@ -49,7 +50,7 @@ const SmartTools = () => {
         {
             id: 'ai-chat',
             title: 'AI Chat Planner',
-            icon: '💬',
+            icon: MessageCircle,
             description: 'Chat with AI to plan your trip',
             path: '/smart-tools/ai-chat',
             color: '#48bb78',
@@ -57,7 +58,7 @@ const SmartTools = () => {
         {
             id: 'story',
             title: 'Trip Story Creator',
-            icon: '📖',
+            icon: BookOpen,
             description: 'Create and share your trip story',
             path: '/smart-tools/story',
             color: '#9f7aea',
@@ -79,25 +80,30 @@ const SmartTools = () => {
             </div>
 
             <div className="tools-grid">
-                {tools.map(tool => (
-                    <Link
-                        key={tool.id}
-                        to={tool.path}
-                        className="tool-card"
-                        style={{ '--tool-color': tool.color }}
-                    >
-                        <div className="tool-icon">{tool.icon}</div>
-                        <div className="tool-content">
-                            <h3>{tool.title}</h3>
-                            <p>{tool.description}</p>
-                        </div>
-                        <div className="tool-arrow">→</div>
-                    </Link>
-                ))}
+                {tools.map(tool => {
+                    const IconComponent = tool.icon;
+                    return (
+                        <Link
+                            key={tool.id}
+                            to={tool.path}
+                            className="tool-card"
+                            style={{ '--tool-color': tool.color }}
+                        >
+                            <div className="tool-icon">
+                                <IconComponent size={32} />
+                            </div>
+                            <div className="tool-content">
+                                <h3>{tool.title}</h3>
+                                <p>{tool.description}</p>
+                            </div>
+                            <div className="tool-arrow"><ArrowRight size={20} /></div>
+                        </Link>
+                    );
+                })}
             </div>
 
             <div className="ai-badge">
-                <span className="badge-icon">✨</span>
+                <span className="badge-icon"><Sparkles size={20} /></span>
                 <span className="badge-text">Powered by AI</span>
             </div>
         </div>

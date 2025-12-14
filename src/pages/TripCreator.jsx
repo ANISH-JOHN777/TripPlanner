@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTripContext } from '../context/TripContext';
+import { Luggage, Heart, Users, MapPin, Calendar, AlertTriangle, Sparkles, Target, Wallet, Smartphone, Map } from 'lucide-react';
 import './TripCreator.css';
 
 const TripCreator = () => {
@@ -43,9 +44,9 @@ const TripCreator = () => {
     ];
 
     const travelTypes = [
-        { value: 'solo', label: 'Solo', icon: '🧳', description: 'Traveling alone' },
-        { value: 'couple', label: 'Couple', icon: '💑', description: 'Traveling with partner' },
-        { value: 'group', label: 'Group', icon: '👥', description: 'Traveling with friends/family' },
+        { value: 'solo', label: 'Solo', icon: Luggage, description: 'Traveling alone' },
+        { value: 'couple', label: 'Couple', icon: Heart, description: 'Traveling with partner' },
+        { value: 'group', label: 'Group', icon: Users, description: 'Traveling with friends/family' },
     ];
 
     const handleChange = (e) => {
@@ -163,7 +164,7 @@ const TripCreator = () => {
                     {/* Destination Selection */}
                     <div className="form-group">
                         <label htmlFor="destination" className="form-label">
-                            <span className="label-icon">📍</span>
+                            <span className="label-icon"><MapPin size={18} /></span>
                             Destination
                         </label>
                         <select
@@ -189,7 +190,7 @@ const TripCreator = () => {
                     <div className="form-row">
                         <div className="form-group">
                             <label htmlFor="startDate" className="form-label">
-                                <span className="label-icon">📅</span>
+                                <span className="label-icon"><Calendar size={18} /></span>
                                 Start Date
                             </label>
                             <input
@@ -209,7 +210,7 @@ const TripCreator = () => {
 
                         <div className="form-group">
                             <label htmlFor="endDate" className="form-label">
-                                <span className="label-icon">📅</span>
+                                <span className="label-icon"><Calendar size={18} /></span>
                                 End Date
                             </label>
                             <input
@@ -231,7 +232,7 @@ const TripCreator = () => {
                     {/* Travel Type Selection */}
                     <div className="form-group">
                         <label className="form-label">
-                            <span className="label-icon">👥</span>
+                            <span className="label-icon"><Users size={18} /></span>
                             Travel Type
                         </label>
                         <div className="travel-type-grid">
@@ -249,7 +250,9 @@ const TripCreator = () => {
                                         disabled={isSubmitting}
                                         className="travel-type-input"
                                     />
-                                    <div className="travel-type-icon">{type.icon}</div>
+                                    <div className="travel-type-icon">
+                                        <type.icon size={32} />
+                                    </div>
                                     <div className="travel-type-label">{type.label}</div>
                                     <div className="travel-type-description">{type.description}</div>
                                 </label>
@@ -263,7 +266,7 @@ const TripCreator = () => {
                     {/* Submit Error */}
                     {errors.submit && (
                         <div className="submit-error">
-                            <span className="error-icon">⚠️</span>
+                            <span className="error-icon"><AlertTriangle size={18} /></span>
                             {errors.submit}
                         </div>
                     )}
@@ -283,7 +286,7 @@ const TripCreator = () => {
                             ) : (
                                 <>
                                     Create Trip
-                                    <span className="btn-icon">✨</span>
+                                    <span className="btn-icon"><Sparkles size={18} /></span>
                                 </>
                             )}
                         </button>
@@ -295,28 +298,28 @@ const TripCreator = () => {
                     <h3>Why Plan Your Trip?</h3>
                     <div className="info-list">
                         <div className="info-item">
-                            <span className="info-icon">🎯</span>
+                            <span className="info-icon"><Target size={24} /></span>
                             <div className="info-content">
                                 <h4>Organized Travel</h4>
                                 <p>Keep all your trip details in one place</p>
                             </div>
                         </div>
                         <div className="info-item">
-                            <span className="info-icon">💰</span>
+                            <span className="info-icon"><Wallet size={24} /></span>
                             <div className="info-content">
                                 <h4>Budget Tracking</h4>
                                 <p>Monitor your expenses throughout the trip</p>
                             </div>
                         </div>
                         <div className="info-item">
-                            <span className="info-icon">📱</span>
+                            <span className="info-icon"><Smartphone size={24} /></span>
                             <div className="info-content">
                                 <h4>Easy Access</h4>
                                 <p>Access your itinerary anytime, anywhere</p>
                             </div>
                         </div>
                         <div className="info-item">
-                            <span className="info-icon">🗺️</span>
+                            <span className="info-icon"><Map size={24} /></span>
                             <div className="info-content">
                                 <h4>Day Planning</h4>
                                 <p>Plan activities for each day of your trip</p>

@@ -6,7 +6,7 @@ const Sidebar = () => {
         { path: '/overview', label: 'Overview', icon: '🏠' },
         { path: '/trip-creator', label: 'Create Trip', icon: '✨' },
         { path: '/day-planner', label: 'Day Planner', icon: '📅' },
-        { path: '/saved-trips', label: 'Saved Trips', icon: '💾' },
+        { path: '/saved-trips', label: 'Saved Info', icon: '💾' },
         { path: '/notifications', label: 'Notifications', icon: '🔔' },
         { path: '/settings', label: 'Settings', icon: '⚙️' },
     ];

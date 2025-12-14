@@ -153,4 +153,10 @@ export const getMockRestaurants = (destination) => {
     return INDIAN_CITIES_DATA[city]?.restaurants || INDIAN_CITIES_DATA.default.restaurants;
 };
 
+// Get mock buses for a destination
+export const getMockBuses = (destination) => {
+    const city = getCityName(destination);
+    return INDIAN_CITIES_DATA[city]?.buses || INDIAN_CITIES_DATA.default.buses;
+};
+
 export default INDIAN_CITIES_DATA;

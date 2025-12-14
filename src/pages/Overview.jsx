@@ -1,5 +1,6 @@
 import { useTripContext } from '../context/TripContext';
 import { Link, Navigate } from 'react-router-dom';
+import { Luggage, Heart, Users, Plane, Clock, PartyPopper, Calendar, CalendarDays, ClipboardList, Save, Sparkles, ArrowRight } from 'lucide-react';
 import './Overview.css';
 
 const Overview = () => {
@@ -43,11 +44,11 @@ const Overview = () => {
     // Get travel type display
     const getTravelTypeDisplay = () => {
         const types = {
-            solo: { icon: '🧳', label: 'Solo Trip' },
-            couple: { icon: '💑', label: 'Couple Trip' },
-            group: { icon: '👥', label: 'Group Trip' },
+            solo: { icon: Luggage, label: 'Solo Trip' },
+            couple: { icon: Heart, label: 'Couple Trip' },
+            group: { icon: Users, label: 'Group Trip' },
         };
-        return types[activeTrip.travelType] || { icon: '✈️', label: 'Trip' };
+        return types[activeTrip.travelType] || { icon: Plane, label: 'Trip' };
     };
 
     const totalDays = calculateTotalDays();
@@ -60,14 +61,16 @@ const Overview = () => {
             <div className="overview-hero">
                 <div className="hero-content">
                     <div className="trip-badge">
-                        <span className="badge-icon">{travelTypeInfo.icon}</span>
+                        <span className="badge-icon">
+                            {travelTypeInfo.icon && <travelTypeInfo.icon size={20} />}
+                        </span>
                         <span className="badge-text">{travelTypeInfo.label}</span>
                     </div>
                     <h1 className="trip-destination">{activeTrip.destination}</h1>
 
                     {daysUntil !== null && daysUntil > 0 && (
                         <div className="countdown-banner">
-                            <span className="countdown-icon">⏰</span>
+                            <span className="countdown-icon"><Clock size={20} /></span>
                             <span className="countdown-text">
                                 {daysUntil === 1 ? 'Starts tomorrow!' : `Starts in ${daysUntil} days`}
                             </span>
@@ -76,14 +79,14 @@ const Overview = () => {
 
                     {daysUntil !== null && daysUntil === 0 && (
                         <div className="countdown-banner today">
-                            <span className="countdown-icon">🎉</span>
+                            <span className="countdown-icon"><PartyPopper size={20} /></span>
                             <span className="countdown-text">Your trip starts today!</span>
                         </div>
                     )}
 
                     {daysUntil !== null && daysUntil < 0 && (
                         <div className="countdown-banner ongoing">
-                            <span className="countdown-icon">✈️</span>
+                            <span className="countdown-icon"><Plane size={20} /></span>
                             <span className="countdown-text">Trip in progress</span>
                         </div>
                     )}
@@ -94,7 +97,7 @@ const Overview = () => {
             <div className="trip-details-grid">
                 {/* Start Date Card */}
                 <div className="detail-card">
-                    <div className="card-icon">📅</div>
+                    <div className="card-icon"><Calendar size={24} /></div>
                     <div className="card-content">
                         <div className="card-label">Start Date</div>
                         <div className="card-value">{formatDate(activeTrip.startDate)}</div>
@@ -103,7 +106,7 @@ const Overview = () => {
 
                 {/* End Date Card */}
                 <div className="detail-card">
-                    <div className="card-icon">📅</div>
+                    <div className="card-icon"><Calendar size={24} /></div>
                     <div className="card-content">
                         <div className="card-label">End Date</div>
                         <div className="card-value">{formatDate(activeTrip.endDate)}</div>
@@ -112,7 +115,7 @@ const Overview = () => {
 
                 {/* Total Days Card */}
                 <div className="detail-card highlight">
-                    <div className="card-icon">🗓️</div>
+                    <div className="card-icon"><CalendarDays size={24} /></div>
                     <div className="card-content">
                         <div className="card-label">Total Days</div>
                         <div className="card-value">{totalDays} {totalDays === 1 ? 'Day' : 'Days'}</div>
@@ -121,7 +124,7 @@ const Overview = () => {
 
                 {/* Travelers Card */}
                 <div className="detail-card">
-                    <div className="card-icon">👥</div>
+                    <div className="card-icon"><Users size={24} /></div>
                     <div className="card-content">
                         <div className="card-label">Travelers</div>
                         <div className="card-value">{activeTrip.travelers || 1}</div>
@@ -134,30 +137,30 @@ const Overview = () => {
                 <h2 className="section-title">Quick Actions</h2>
                 <div className="actions-grid">
                     <Link to="/day-planner" className="action-card">
-                        <div className="action-icon">📋</div>
+                        <div className="action-icon"><ClipboardList size={32} /></div>
                         <div className="action-content">
                             <h3>Plan Day-wise Itinerary</h3>
                             <p>Create detailed plans for each day of your trip</p>
                         </div>
-                        <div className="action-arrow">→</div>
+                        <div className="action-arrow"><ArrowRight size={20} /></div>
                     </Link>
 
                     <Link to="/saved-trips" className="action-card">
-                        <div className="action-icon">💾</div>
+                        <div className="action-icon"><Save size={32} /></div>
                         <div className="action-content">
                             <h3>View Saved Trips</h3>
                             <p>Browse and manage all your saved trips</p>
                         </div>
-                        <div className="action-arrow">→</div>
+                        <div className="action-arrow"><ArrowRight size={20} /></div>
                     </Link>
 
                     <Link to="/trip-creator" className="action-card">
-                        <div className="action-icon">✨</div>
+                        <div className="action-icon"><Sparkles size={32} /></div>
                         <div className="action-content">
                             <h3>Create New Trip</h3>
                             <p>Start planning your next adventure</p>
                         </div>
-                        <div className="action-arrow">→</div>
+                        <div className="action-arrow"><ArrowRight size={20} /></div>
                     </Link>
                 </div>
             </div>
@@ -168,7 +171,7 @@ const Overview = () => {
                     <div className="section-header-with-action">
                         <h2 className="section-title">Your Itinerary</h2>
                         <Link to="/day-planner" className="btn btn-secondary btn-sm">
-                            Edit in Day Planner →
+                            Edit in Day Planner <ArrowRight size={16} style={{ display: 'inline', marginLeft: '4px' }} />
                         </Link>
                     </div>
                     <div className="days-preview-grid">

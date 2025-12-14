@@ -1,5 +1,7 @@
 import { useTripContext } from '../../context/TripContext';
 import { Navigate, Link } from 'react-router-dom';
+import { UtensilsCrossed, Star, MapPin, DollarSign } from 'lucide-react';
+import { getMockRestaurants } from '../../utils/mockData';
 import './Restaurants.css';
 
 const Restaurants = () => {
@@ -9,11 +11,13 @@ const Restaurants = () => {
         return <Navigate to="/trip-creator" replace />;
     }
 
+    const restaurants = getMockRestaurants(activeTrip.destination);
+
     return (
         <div className="restaurants-page">
             <div className="module-header">
                 <div>
-                    <h1>🍽️ Restaurants</h1>
+                    <h1><UtensilsCrossed size={32} /> Restaurants</h1>
                     <p className="module-subtitle">Discover dining in {activeTrip.destination}</p>
                 </div>
                 <Link to="/bookings" className="btn btn-secondary">
@@ -41,16 +45,56 @@ const Restaurants = () => {
                 </div>
             </div>
 
-            <div className="placeholder-content">
-                <div className="placeholder-icon">🍽️</div>
-                <h2>Restaurant Finder Coming Soon</h2>
-                <p>This feature will help you discover the best dining options for your trip.</p>
-                <div className="feature-list">
-                    <div className="feature-item">✓ Search restaurants by cuisine</div>
-                    <div className="feature-item">✓ Read reviews and ratings</div>
-                    <div className="feature-item">✓ View menus and prices</div>
-                    <div className="feature-item">✓ Make reservations</div>
-                    <div className="feature-item">✓ Get directions and contact info</div>
+            <div className="results-section">
+                <div className="results-header">
+                    <h3>{restaurants.length} Restaurants Found in {activeTrip.destination}</h3>
+                    <p className="results-note">Discover the best dining experiences for your trip</p>
+                </div>
+
+                <div className="restaurant-grid">
+                    {restaurants.map(restaurant => (
+                        <div key={restaurant.id} className="restaurant-card">
+                            <div className="restaurant-header">
+                                <div className="restaurant-info">
+                                    <UtensilsCrossed size={24} className="restaurant-icon" />
+                                    <div>
+                                        <h4>{restaurant.name}</h4>
+                                        <span className="cuisine-type">{restaurant.cuisine}</span>
+                                    </div>
+                                </div>
+                                <div className="rating-info">
+                                    <Star size={16} fill="gold" color="gold" />
+                                    <span className="rating-value">{restaurant.rating}</span>
+                                </div>
+                            </div>
+
+                            <div className="restaurant-details">
+                                <div className="detail-item">
+                                    <MapPin size={16} />
+                                    <span>{restaurant.location}</span>
+                                </div>
+                                <div className="detail-item">
+                                    <DollarSign size={16} />
+                                    <span>{restaurant.priceRange}</span>
+                                </div>
+                            </div>
+
+                            <div className="restaurant-specialty">
+                                <div className="specialty-label">Specialty:</div>
+                                <div className="specialty-value">{restaurant.specialty}</div>
+                            </div>
+
+                            <div className="restaurant-popular">
+                                <div className="popular-label">Must Try:</div>
+                                <div className="popular-value">{restaurant.popular}</div>
+                            </div>
+
+                            <div className="restaurant-footer">
+                                <button className="btn btn-primary btn-sm">View Menu</button>
+                                <button className="btn btn-secondary btn-sm">Reserve Table</button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

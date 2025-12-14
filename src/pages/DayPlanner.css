@@ -80,11 +80,6 @@
     gap: var(--space-2);
 }
 
-.day-date::before {
-    content: '📅';
-    font-size: var(--text-base);
-}
-
 /* Activities List */
 .activities-list {
     padding: var(--space-5);

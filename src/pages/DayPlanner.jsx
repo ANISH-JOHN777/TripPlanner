@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTripContext } from '../context/TripContext';
 import { Navigate, Link } from 'react-router-dom';
+import { AlertTriangle, Clock, Pencil, Trash2, FileText } from 'lucide-react';
 import './DayPlanner.css';
 
 const DayPlanner = () => {
@@ -18,7 +19,7 @@ const DayPlanner = () => {
         return (
             <div className="day-planner-page">
                 <div className="error-state">
-                    <div className="error-icon">⚠️</div>
+                    <div className="error-icon"><AlertTriangle size={48} /></div>
                     <h2>Missing Trip Dates</h2>
                     <p>This trip doesn't have start and end dates set.</p>
                     <Link to="/overview" className="btn btn-primary">
@@ -170,7 +171,7 @@ const DayPlanner = () => {
                             <div className="activities-list">
                                 {activities.length === 0 && !isAddingToThisDay && (
                                     <div className="empty-day">
-                                        <span className="empty-icon">📝</span>
+                                        <span className="empty-icon"><FileText size={32} /></span>
                                         <p>No activities planned for this day</p>
                                     </div>
                                 )}
@@ -301,7 +302,7 @@ const ActivityCard = ({ activity, onEdit, onDelete }) => {
             <div className="activity-content">
                 {activity.time && (
                     <div className="activity-time">
-                        <span className="time-icon">🕐</span>
+                        <span className="time-icon"><Clock size={16} /></span>
                         {activity.time}
                     </div>
                 )}
@@ -312,10 +313,10 @@ const ActivityCard = ({ activity, onEdit, onDelete }) => {
             </div>
             <div className="activity-actions">
                 <button className="btn-icon" onClick={onEdit} title="Edit">
-                    ✏️
+                    <Pencil size={16} />
                 </button>
                 <button className="btn-icon" onClick={onDelete} title="Delete">
-                    🗑️
+                    <Trash2 size={16} />
                 </button>
             </div>
         </div>

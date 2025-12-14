@@ -10,7 +10,7 @@ const Navbar = () => {
         { path: '/day-planner', label: 'Day Planner', icon: Calendar },
         { path: '/bookings', label: 'Bookings', icon: Ticket },
         { path: '/smart-tools', label: 'Smart Tools', icon: Bot },
-        { path: '/saved-trips', label: 'Saved Trips', icon: Save },
+        { path: '/saved-trips', label: 'Saved Info', icon: Save },
         { path: '/settings', label: 'Settings', icon: Settings },
     ];
 

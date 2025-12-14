@@ -1,5 +1,6 @@
 import { useTripContext } from '../context/TripContext';
 import { Navigate, Link } from 'react-router-dom';
+import { Hotel, Plane, UtensilsCrossed, Wallet, DollarSign, ArrowRight } from 'lucide-react';
 import './Bookings.css';
 
 const Bookings = () => {
@@ -14,7 +15,7 @@ const Bookings = () => {
         {
             id: 'hotels',
             title: 'Hotel Finder',
-            icon: '🏨',
+            icon: Hotel,
             description: 'Find and book hotels for your trip',
             path: '/bookings/hotels',
             color: '#667eea',
@@ -22,7 +23,7 @@ const Bookings = () => {
         {
             id: 'transport',
             title: 'Transport',
-            icon: '✈️',
+            icon: Plane,
             description: 'Book flights, trains, and buses',
             path: '/bookings/transport',
             color: '#48bb78',
@@ -30,7 +31,7 @@ const Bookings = () => {
         {
             id: 'restaurants',
             title: 'Restaurants',
-            icon: '🍽️',
+            icon: UtensilsCrossed,
             description: 'Discover dining options',
             path: '/bookings/restaurants',
             color: '#ed8936',
@@ -38,7 +39,7 @@ const Bookings = () => {
         {
             id: 'expenses',
             title: 'Expense Splitter',
-            icon: '💰',
+            icon: Wallet,
             description: 'Split expenses with travel companions',
             path: '/bookings/expenses',
             color: '#9f7aea',
@@ -46,7 +47,7 @@ const Bookings = () => {
         {
             id: 'currency',
             title: 'Currency Converter',
-            icon: '💱',
+            icon: DollarSign,
             description: 'Convert currencies for your trip',
             path: '/bookings/currency',
             color: '#38b2ac',
@@ -68,21 +69,28 @@ const Bookings = () => {
             </div>
 
             <div className="modules-grid">
-                {modules.map(module => (
-                    <Link
-                        key={module.id}
-                        to={module.path}
-                        className="module-card"
-                        style={{ '--module-color': module.color }}
-                    >
-                        <div className="module-icon">{module.icon}</div>
-                        <div className="module-content">
-                            <h3>{module.title}</h3>
-                            <p>{module.description}</p>
-                        </div>
-                        <div className="module-arrow">→</div>
-                    </Link>
-                ))}
+                {modules.map(module => {
+                    const IconComponent = module.icon;
+                    return (
+                        <Link
+                            key={module.id}
+                            to={module.path}
+                            className="module-card"
+                            style={{ '--module-color': module.color }}
+                        >
+                            <div className="module-icon">
+                                <IconComponent size={32} />
+                            </div>
+                            <div className="module-content">
+                                <h3>{module.title}</h3>
+                                <p>{module.description}</p>
+                            </div>
+                            <div className="module-arrow">
+                                <ArrowRight size={20} />
+                            </div>
+                        </Link>
+                    );
+                })}
             </div>
 
             <div className="trip-info-banner">
