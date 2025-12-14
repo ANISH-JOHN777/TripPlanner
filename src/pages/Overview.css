@@ -6,13 +6,13 @@
 
 /* Hero Section */
 .overview-hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
     border-radius: 20px;
     padding: 60px 40px;
     margin-bottom: 40px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
 }
 
 .overview-hero::before {
@@ -67,7 +67,7 @@
     align-items: center;
     gap: 10px;
     background: rgba(255, 255, 255, 0.95);
-    color: #667eea;
+    color: #DC2626;
     padding: 12px 24px;
     border-radius: 25px;
     font-weight: 600;
@@ -114,7 +114,7 @@
 }
 
 .detail-card.highlight {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
     color: white;
 }
 
@@ -193,14 +193,14 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
     transform: scaleY(0);
     transition: transform 0.3s ease;
 }
 
 .action-card:hover {
     transform: translateX(8px);
-    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+    box-shadow: 0 8px 24px rgba(220, 38, 38, 0.15);
 }
 
 .action-card:hover::before {
@@ -231,13 +231,121 @@
 
 .action-arrow {
     font-size: 1.5rem;
-    color: #667eea;
+    color: #DC2626;
     font-weight: 700;
     transition: transform 0.3s ease;
 }
 
 .action-card:hover .action-arrow {
     transform: translateX(4px);
+}
+
+/* Day Planner Preview Section */
+.day-planner-preview-section {
+    margin-bottom: 50px;
+}
+
+.section-header-with-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.days-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.day-preview-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-light);
+    overflow: hidden;
+    transition: all var(--transition-base);
+}
+
+.day-preview-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.day-preview-header {
+    background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--bg-primary) 100%);
+    padding: 16px 20px;
+    border-bottom: 2px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.day-number-badge {
+    font-size: 1.1rem;
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+}
+
+.day-date-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: var(--font-medium);
+}
+
+.activities-preview-list {
+    padding: 20px;
+}
+
+.activity-preview-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.activity-preview-item:last-child {
+    border-bottom: none;
+}
+
+.activity-time-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    background: var(--color-primary-50);
+    color: var(--color-primary-dark);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: var(--font-semibold);
+    flex-shrink: 0;
+}
+
+.activity-name {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: var(--font-medium);
+    flex: 1;
+}
+
+.more-activities {
+    margin-top: 12px;
+    padding: 10px;
+    text-align: center;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: var(--font-medium);
+}
+
+.no-activities {
+    padding: 32px 20px;
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: 0.9rem;
 }
 
 /* Trip Info Section */

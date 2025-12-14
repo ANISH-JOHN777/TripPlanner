@@ -1,164 +1,220 @@
-import { useState } from 'react';
-import { useTripContext } from '../context/TripContext';
+import { Link } from 'react-router-dom';
+import {
+    MapPin, Bot, Edit3, Save, Calendar, Globe, Users, Hotel,
+    DollarSign, Map, BookOpen, Smartphone, RefreshCw, Sparkles
+} from 'lucide-react';
 import './Home.css';
 
-const Home = ({ onNavigate }) => {
-    const { trips } = useTripContext();
-    const [searchQuery, setSearchQuery] = useState('');
-
-    const featuredDestinations = [
-        {
-            id: 1,
-            name: 'Paris, France',
-            image: '🗼',
-            description: 'The City of Light awaits',
-            popular: true,
-        },
-        {
-            id: 2,
-            name: 'Tokyo, Japan',
-            image: '🗾',
-            description: 'Where tradition meets future',
-            popular: true,
-        },
-        {
-            id: 3,
-            name: 'Bali, Indonesia',
-            image: '🏝️',
-            description: 'Tropical paradise',
-            popular: true,
-        },
-        {
-            id: 4,
-            name: 'New York, USA',
-            image: '🗽',
-            description: 'The city that never sleeps',
-            popular: false,
-        },
-        {
-            id: 5,
-            name: 'Dubai, UAE',
-            image: '🏙️',
-            description: 'Modern luxury destination',
-            popular: false,
-        },
-        {
-            id: 6,
-            name: 'Rome, Italy',
-            image: '🏛️',
-            description: 'Ancient history comes alive',
-            popular: true,
-        },
-    ];
-
-    const handleStartPlanning = () => {
-        onNavigate('planner');
-    };
-
+const Home = () => {
     return (
         <div className="home-page">
             {/* Hero Section */}
             <section className="hero-section">
-                <div className="hero-content">
-                    <h1 className="hero-title">
-                        Plan Your Perfect Trip with <span className="gradient-text">AI</span>
-                    </h1>
-                    <p className="hero-subtitle">
-                        Let artificial intelligence create personalized itineraries tailored to your preferences,
-                        budget, and travel style. Your dream vacation is just a few clicks away.
-                    </p>
-                    <div className="hero-actions">
-                        <button className="btn btn-primary btn-large" onClick={handleStartPlanning}>
-                            Start Planning
-                            <span className="btn-icon">✈️</span>
-                        </button>
-                        <button className="btn btn-secondary btn-large" onClick={() => onNavigate('trips')}>
-                            View My Trips
-                            <span className="btn-icon">📋</span>
-                        </button>
-                    </div>
-                </div>
-                <div className="hero-stats">
-                    <div className="stat-card">
-                        <div className="stat-number">{trips.length}</div>
-                        <div className="stat-label">Trips Planned</div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-number">50+</div>
-                        <div className="stat-label">Destinations</div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="stat-number">AI</div>
-                        <div className="stat-label">Powered</div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Features Section */}
-            <section className="features-section">
-                <h2 className="section-title">Why Choose AI Trip Planner?</h2>
-                <div className="features-grid">
-                    <div className="feature-card">
-                        <div className="feature-icon">🤖</div>
-                        <h3>AI-Powered Planning</h3>
-                        <p>Advanced AI creates personalized itineraries based on your preferences and budget</p>
-                    </div>
-                    <div className="feature-card">
-                        <div className="feature-icon">⚡</div>
-                        <h3>Instant Itineraries</h3>
-                        <p>Get detailed day-by-day plans in seconds, not hours of research</p>
-                    </div>
-                    <div className="feature-card">
-                        <div className="feature-icon">💰</div>
-                        <h3>Budget Optimization</h3>
-                        <p>Smart recommendations that match your budget without compromising experience</p>
-                    </div>
-                    <div className="feature-card">
-                        <div className="feature-icon">🎯</div>
-                        <h3>Personalized Experiences</h3>
-                        <p>Tailored suggestions based on your interests and travel style</p>
-                    </div>
-                    <div className="feature-card">
-                        <div className="feature-icon">🌍</div>
-                        <h3>Global Coverage</h3>
-                        <p>Explore destinations worldwide with local insights and tips</p>
-                    </div>
-                    <div className="feature-card">
-                        <div className="feature-icon">📱</div>
-                        <h3>Easy to Use</h3>
-                        <p>Simple interface that makes trip planning fun and effortless</p>
-                    </div>
-                </div>
-            </section>
-
-            {/* Featured Destinations */}
-            <section className="destinations-section">
-                <h2 className="section-title">Popular Destinations</h2>
-                <div className="destinations-grid">
-                    {featuredDestinations.map(dest => (
-                        <div key={dest.id} className="destination-card" onClick={handleStartPlanning}>
-                            <div className="destination-image">{dest.image}</div>
-                            <div className="destination-info">
-                                <h3>{dest.name}</h3>
-                                <p>{dest.description}</p>
-                                {dest.popular && <span className="badge">Popular</span>}
+                <div className="container">
+                    <div className="hero-content">
+                        <h1 className="hero-title">
+                            Plan Your Perfect Trip with <span className="gradient-text">AI Intelligence</span>
+                        </h1>
+                        <p className="hero-description">
+                            Smart, stress-free trip planning powered by AI. Create personalized itineraries,
+                            manage bookings, and organize every detail of your journey—all in one place.
+                        </p>
+                        <div className="hero-actions">
+                            <Link to="/trip-creator" className="btn btn-primary btn-lg">
+                                Create Your Trip
+                            </Link>
+                            <a href="#features" className="btn btn-secondary btn-lg">
+                                View Features
+                            </a>
+                        </div>
+                        <div className="hero-stats">
+                            <div className="stat-item">
+                                <span className="stat-number">10K+</span>
+                                <span className="stat-label">Trips Planned</span>
+                            </div>
+                            <div className="stat-item">
+                                <span className="stat-number">50+</span>
+                                <span className="stat-label">Destinations</span>
+                            </div>
+                            <div className="stat-item">
+                                <span className="stat-number">98%</span>
+                                <span className="stat-label">Satisfaction</span>
                             </div>
                         </div>
-                    ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* How It Works Section */}
+            <section className="how-it-works-section">
+                <div className="container">
+                    <div className="section-header">
+                        <h2>How It Works</h2>
+                        <p>Plan your perfect trip in 4 simple steps</p>
+                    </div>
+                    <div className="steps-grid">
+                        <div className="step-card">
+                            <div className="step-number">1</div>
+                            <MapPin className="step-icon" size={48} strokeWidth={1.5} />
+                            <h3>Choose Destination</h3>
+                            <p>Select your destination, travel dates, and trip type (solo, couple, or group)</p>
+                        </div>
+                        <div className="step-card">
+                            <div className="step-number">2</div>
+                            <Bot className="step-icon" size={48} strokeWidth={1.5} />
+                            <h3>AI Builds Itinerary</h3>
+                            <p>Our AI analyzes your preferences and creates a personalized day-wise itinerary</p>
+                        </div>
+                        <div className="step-card">
+                            <div className="step-number">3</div>
+                            <Edit3 className="step-icon" size={48} strokeWidth={1.5} />
+                            <h3>Customize Plans</h3>
+                            <p>Edit activities, add bookings, manage expenses, and fine-tune every detail</p>
+                        </div>
+                        <div className="step-card">
+                            <div className="step-number">4</div>
+                            <Save className="step-icon" size={48} strokeWidth={1.5} />
+                            <h3>Save & Manage</h3>
+                            <p>Access your trips anytime, share with friends, and revisit your travel memories</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Key Features Section */}
+            <section className="features-section" id="features">
+                <div className="container">
+                    <div className="section-header">
+                        <h2>Powerful Features for Smart Travel</h2>
+                        <p>Everything you need to plan, book, and enjoy your perfect trip</p>
+                    </div>
+                    <div className="features-grid">
+                        <div className="feature-card">
+                            <Bot className="feature-icon" size={40} strokeWidth={1.5} />
+                            <h3>AI Trip Planner</h3>
+                            <p>Get intelligent suggestions for activities, restaurants, and attractions based on your preferences</p>
+                        </div>
+                        <div className="feature-card">
+                            <Calendar className="feature-icon" size={40} strokeWidth={1.5} />
+                            <h3>Day-wise Itinerary</h3>
+                            <p>Organize your trip with detailed day-by-day plans, timings, and activity tracking</p>
+                        </div>
+                        <div className="feature-card">
+                            <Globe className="feature-icon" size={40} strokeWidth={1.5} />
+                            <h3>Multi-city Planning</h3>
+                            <p>Plan complex trips across multiple cities with seamless transitions and logistics</p>
+                        </div>
+                        <div className="feature-card">
+                            <Users className="feature-icon" size={40} strokeWidth={1.5} />
+                            <h3>Group Travel Mode</h3>
+                            <p>Coordinate with friends and family, split expenses, and manage group activities</p>
+                        </div>
+                        <div className="feature-card">
+                            <Hotel className="feature-icon" size={40} strokeWidth={1.5} />
+                            <h3>Smart Bookings</h3>
+                            <p>Find and compare hotels, flights, trains, and restaurants all in one place</p>
+                        </div>
+                        <div className="feature-card">
+                            <DollarSign className="feature-icon" size={40} strokeWidth={1.5} />
+                            <h3>Expense Splitter</h3>
+                            <p>Track shared expenses and automatically calculate who owes what</p>
+                        </div>
+                        <div className="feature-card">
+                            <Map className="feature-icon" size={40} strokeWidth={1.5} />
+                            <h3>Maps & Navigation</h3>
+                            <p>Integrated maps with directions, distance calculations, and location tracking</p>
+                        </div>
+                        <div className="feature-card">
+                            <BookOpen className="feature-icon" size={40} strokeWidth={1.5} />
+                            <h3>Trip Story Creator</h3>
+                            <p>Create beautiful travel stories with photos and memories to share with others</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Why Choose Section */}
+            <section className="why-choose-section">
+                <div className="container">
+                    <div className="section-header">
+                        <h2>Why Choose WanderAI?</h2>
+                        <p>The smartest way to plan your travels</p>
+                    </div>
+                    <div className="benefits-grid">
+                        <div className="benefit-card">
+                            <Smartphone className="benefit-icon" size={56} strokeWidth={1.5} />
+                            <h3>All Trips in One Place</h3>
+                            <p>Never lose track of your travel plans. Access all your trips, past and future, from a single dashboard</p>
+                        </div>
+                        <div className="benefit-card">
+                            <RefreshCw className="benefit-icon" size={56} strokeWidth={1.5} />
+                            <h3>Fully Synced Planning</h3>
+                            <p>Changes sync instantly across all devices. Your itinerary is always up-to-date, wherever you are</p>
+                        </div>
+                        <div className="benefit-card">
+                            <MapPin className="benefit-icon" size={56} strokeWidth={1.5} />
+                            <h3>India-Focused Intelligence</h3>
+                            <p>Specialized AI trained on Indian destinations, culture, and travel patterns for authentic recommendations</p>
+                        </div>
+                        <div className="benefit-card">
+                            <Sparkles className="benefit-icon" size={56} strokeWidth={1.5} />
+                            <h3>Clean, Modern Interface</h3>
+                            <p>Intuitive design that makes trip planning enjoyable. No clutter, just what you need</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             {/* CTA Section */}
             <section className="cta-section">
-                <div className="cta-content">
-                    <h2>Ready to Start Your Adventure?</h2>
-                    <p>Join thousands of travelers who trust AI to plan their perfect trips</p>
-                    <button className="btn btn-primary btn-large" onClick={handleStartPlanning}>
-                        Create Your First Trip
-                        <span className="btn-icon">🚀</span>
-                    </button>
+                <div className="container">
+                    <div className="cta-content">
+                        <h2>Ready to Start Your Journey?</h2>
+                        <p>Join thousands of travelers who plan smarter with WanderAI</p>
+                        <Link to="/trip-creator" className="btn btn-primary btn-lg">
+                            Start Planning Now
+                        </Link>
+                    </div>
                 </div>
             </section>
+
+            {/* Footer */}
+            <footer className="home-footer">
+                <div className="container">
+                    <div className="footer-content">
+                        <div className="footer-brand">
+                            <div className="footer-logo">
+                                <Globe size={24} strokeWidth={2} />
+                                <span>WanderAI</span>
+                            </div>
+                            <p>AI-powered trip planning made simple</p>
+                        </div>
+                        <div className="footer-links">
+                            <div className="footer-column">
+                                <h4>Product</h4>
+                                <Link to="/overview">Overview</Link>
+                                <Link to="/trip-creator">Create Trip</Link>
+                                <Link to="/smart-tools">Smart Tools</Link>
+                            </div>
+                            <div className="footer-column">
+                                <h4>Features</h4>
+                                <Link to="/day-planner">Day Planner</Link>
+                                <Link to="/bookings">Bookings</Link>
+                                <Link to="/saved-trips">Saved Trips</Link>
+                            </div>
+                            <div className="footer-column">
+                                <h4>Support</h4>
+                                <Link to="/settings">Settings</Link>
+                                <a href="#help">Help Center</a>
+                                <a href="#contact">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="footer-bottom">
+                        <p>&copy; 2024 WanderAI. All rights reserved.</p>
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 };

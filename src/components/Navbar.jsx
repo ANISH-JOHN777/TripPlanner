@@ -1,36 +1,41 @@
 import { NavLink } from 'react-router-dom';
+import { Home, LayoutDashboard, Plus, Calendar, Ticket, Bot, Save, Settings, Globe } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
     const navItems = [
-        { path: '/overview', label: 'Overview', icon: '🏠' },
-        { path: '/trip-creator', label: 'Create Trip', icon: '✨' },
-        { path: '/day-planner', label: 'Day Planner', icon: '📅' },
-        { path: '/bookings', label: 'Bookings', icon: '🎫' },
-        { path: '/smart-tools', label: 'Smart Tools', icon: '🤖' },
-        { path: '/saved-trips', label: 'Saved Trips', icon: '💾' },
-        { path: '/settings', label: 'Settings', icon: '⚙️' },
+        { path: '/home', label: 'Home', icon: Home },
+        { path: '/overview', label: 'Overview', icon: LayoutDashboard },
+        { path: '/trip-creator', label: 'Create Trip', icon: Plus },
+        { path: '/day-planner', label: 'Day Planner', icon: Calendar },
+        { path: '/bookings', label: 'Bookings', icon: Ticket },
+        { path: '/smart-tools', label: 'Smart Tools', icon: Bot },
+        { path: '/saved-trips', label: 'Saved Trips', icon: Save },
+        { path: '/settings', label: 'Settings', icon: Settings },
     ];
 
     return (
         <nav className="navbar">
             <div className="navbar-container">
                 <div className="navbar-brand">
-                    <span className="brand-icon">🌍</span>
+                    <Globe className="brand-icon" size={28} strokeWidth={2.5} />
                     <span className="brand-name">WanderAI</span>
                 </div>
 
                 <div className="navbar-links">
-                    {navItems.map(item => (
-                        <NavLink
-                            key={item.path}
-                            to={item.path}
-                            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-                        >
-                            <span className="nav-icon">{item.icon}</span>
-                            <span className="nav-label">{item.label}</span>
-                        </NavLink>
-                    ))}
+                    {navItems.map(item => {
+                        const Icon = item.icon;
+                        return (
+                            <NavLink
+                                key={item.path}
+                                to={item.path}
+                                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                            >
+                                <Icon className="nav-icon" size={18} strokeWidth={2} />
+                                <span className="nav-label">{item.label}</span>
+                            </NavLink>
+                        );
+                    })}
                 </div>
             </div>
         </nav>

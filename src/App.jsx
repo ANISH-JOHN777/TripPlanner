@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { TripProvider } from './context/TripContext';
 import { UserProvider } from './context/UserContext';
 import Navbar from './components/Navbar';
+import ScrollToTop from './components/ScrollToTop';
+import Home from './pages/Home';
 import Overview from './pages/Overview';
 import TripCreator from './pages/TripCreator';
 import DayPlanner from './pages/DayPlanner';
@@ -26,11 +28,13 @@ function App() {
     <BrowserRouter>
       <UserProvider>
         <TripProvider>
+          <ScrollToTop />
           <div className="app">
             <Navbar />
             <main className="app-main">
               <Routes>
-                <Route path="/" element={<Navigate to="/overview" replace />} />
+                <Route path="/" element={<Navigate to="/home" replace />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/overview" element={<Overview />} />
                 <Route path="/trip-creator" element={<TripCreator />} />
                 <Route path="/day-planner" element={<DayPlanner />} />

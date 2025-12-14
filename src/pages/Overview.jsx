@@ -162,6 +162,67 @@ const Overview = () => {
                 </div>
             </div>
 
+            {/* Day Planner Preview */}
+            {activeTrip.dayPlans && Object.keys(activeTrip.dayPlans).length > 0 && (
+                <div className="day-planner-preview-section">
+                    <div className="section-header-with-action">
+                        <h2 className="section-title">Your Itinerary</h2>
+                        <Link to="/day-planner" className="btn btn-secondary btn-sm">
+                            Edit in Day Planner →
+                        </Link>
+                    </div>
+                    <div className="days-preview-grid">
+                        {Object.entries(activeTrip.dayPlans)
+                            .sort(([a], [b]) => {
+                                const dayNumA = parseInt(a.replace('day', ''));
+                                const dayNumB = parseInt(b.replace('day', ''));
+                                return dayNumA - dayNumB;
+                            })
+                            .map(([dayKey, activities]) => {
+                                const dayNumber = parseInt(dayKey.replace('day', ''));
+                                const dayDate = new Date(activeTrip.startDate);
+                                dayDate.setDate(dayDate.getDate() + (dayNumber - 1));
+
+                                return (
+                                    <div key={dayKey} className="day-preview-card">
+                                        <div className="day-preview-header">
+                                            <div className="day-number-badge">Day {dayNumber}</div>
+                                            <div className="day-date-text">
+                                                {dayDate.toLocaleDateString('en-IN', {
+                                                    weekday: 'short',
+                                                    month: 'short',
+                                                    day: 'numeric'
+                                                })}
+                                            </div>
+                                        </div>
+                                        <div className="activities-preview-list">
+                                            {activities && activities.length > 0 ? (
+                                                <>
+                                                    {activities.slice(0, 3).map((activity, index) => (
+                                                        <div key={activity.id || index} className="activity-preview-item">
+                                                            {activity.time && (
+                                                                <span className="activity-time-badge">{activity.time}</span>
+                                                            )}
+                                                            <span className="activity-name">{activity.place}</span>
+                                                        </div>
+                                                    ))}
+                                                    {activities.length > 3 && (
+                                                        <div className="more-activities">
+                                                            +{activities.length - 3} more {activities.length - 3 === 1 ? 'activity' : 'activities'}
+                                                        </div>
+                                                    )}
+                                                </>
+                                            ) : (
+                                                <div className="no-activities">No activities planned</div>
+                                            )}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                    </div>
+                </div>
+            )}
+
             {/* Trip Info */}
             <div className="trip-info-section">
                 <div className="info-card">
