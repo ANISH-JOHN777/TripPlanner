@@ -1,26 +1,15 @@
 import { useState } from 'react';
 import { useTripContext } from '../context/TripContext';
+import { useStoryContext } from '../context/StoryContext';
 import { useNavigate } from 'react-router-dom';
 import { Plane, Luggage, Heart, Users, Calendar, CalendarDays, Check, Trash2, BookOpen, Plus } from 'lucide-react';
 import './SavedTrips.css';
 
 const SavedTrips = () => {
     const { trips, activeTrip, selectTrip, deleteTrip } = useTripContext();
+    const { stories, deleteStory } = useStoryContext();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('trips'); // 'trips' or 'stories'
-
-    // Mock saved stories data (you can replace this with actual data from context)
-    const savedStories = [
-        {
-            id: 1,
-            title: 'My Amazing Goa Trip',
-            destination: 'Goa, Goa',
-            date: '2024-12-01',
-            excerpt: 'An unforgettable journey through the beaches of Goa...',
-            coverImage: null,
-        },
-        // Add more mock stories as needed
-    ];
 
     // Format date for display
     const formatDate = (dateString) => {
@@ -87,6 +76,27 @@ const SavedTrips = () => {
         }
     };
 
+    // Handle story viewing
+    const handleViewStory = (story) => {
+        // Select the trip associated with the story
+        if (story.tripId) {
+            selectTrip(story.tripId);
+        }
+        // Navigate to story creator to view/edit
+        navigate('/smart-tools/story');
+    };
+
+    // Handle story deletion
+    const handleDeleteStory = (storyId) => {
+        const storyToDelete = stories.find(s => s.id === storyId);
+        if (!storyToDelete) return;
+
+        const confirmMessage = `Are you sure you want to delete "${storyToDelete.title}"?`;
+        if (!window.confirm(confirmMessage)) return;
+
+        deleteStory(storyId);
+    };
+
     return (
         <div className="saved-page">
             {/* Sidebar */}
@@ -111,7 +121,7 @@ const SavedTrips = () => {
                     >
                         <BookOpen size={20} />
                         <span>Stories</span>
-                        <span className="tab-count">{savedStories.length}</span>
+                        <span className="tab-count">{stories.length}</span>
                     </button>
                 </div>
 
@@ -270,14 +280,14 @@ const SavedTrips = () => {
                             <div>
                                 <h1>Saved Stories</h1>
                                 <p className="content-subtitle">
-                                    {savedStories.length === 0
+                                    {stories.length === 0
                                         ? 'Create your first trip story!'
-                                        : `You have ${savedStories.length} ${savedStories.length === 1 ? 'story' : 'stories'} saved`}
+                                        : `You have ${stories.length} ${stories.length === 1 ? 'story' : 'stories'} saved`}
                                 </p>
                             </div>
                         </div>
 
-                        {savedStories.length === 0 ? (
+                        {stories.length === 0 ? (
                             <div className="empty-state">
                                 <div className="empty-icon"><BookOpen size={64} /></div>
                                 <h2>No Stories Yet</h2>
@@ -288,40 +298,53 @@ const SavedTrips = () => {
                             </div>
                         ) : (
                             <div className="stories-grid">
-                                {savedStories.map(story => (
-                                    <div key={story.id} className="story-card">
-                                        <div className="story-cover">
-                                            {story.coverImage ? (
-                                                <img src={story.coverImage} alt={story.title} />
-                                            ) : (
-                                                <div className="story-cover-placeholder">
-                                                    <BookOpen size={48} />
-                                                </div>
-                                            )}
+                                {stories.map(story => {
+                                    // Get excerpt from content (first 150 characters)
+                                    const excerpt = story.content
+                                        ? story.content.substring(0, 150).replace(/[#*]/g, '') + '...'
+                                        : 'No content available';
+
+                                    return (
+                                        <div key={story.id} className="story-card">
+                                            <div className="story-cover">
+                                                {story.image ? (
+                                                    <img src={story.image} alt={story.title} />
+                                                ) : (
+                                                    <div className="story-cover-placeholder">
+                                                        <BookOpen size={48} />
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="story-content">
+                                                <h3>{story.title}</h3>
+                                                <p className="story-destination">
+                                                    <Plane size={14} />
+                                                    {story.destination}
+                                                </p>
+                                                <p className="story-excerpt">{excerpt}</p>
+                                                <p className="story-date">
+                                                    <Calendar size={14} />
+                                                    {formatDate(story.createdAt)}
+                                                </p>
+                                            </div>
+                                            <div className="story-actions">
+                                                <button
+                                                    className="btn btn-secondary btn-full"
+                                                    onClick={() => handleViewStory(story)}
+                                                >
+                                                    View Story
+                                                </button>
+                                                <button
+                                                    className="btn btn-danger btn-full"
+                                                    onClick={() => handleDeleteStory(story.id)}
+                                                >
+                                                    <Trash2 size={16} />
+                                                    Delete
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div className="story-content">
-                                            <h3>{story.title}</h3>
-                                            <p className="story-destination">
-                                                <Plane size={14} />
-                                                {story.destination}
-                                            </p>
-                                            <p className="story-excerpt">{story.excerpt}</p>
-                                            <p className="story-date">
-                                                <Calendar size={14} />
-                                                {formatDate(story.date)}
-                                            </p>
-                                        </div>
-                                        <div className="story-actions">
-                                            <button className="btn btn-secondary btn-full">
-                                                View Story
-                                            </button>
-                                            <button className="btn btn-danger btn-full">
-                                                <Trash2 size={16} />
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
                         )}
                     </div>

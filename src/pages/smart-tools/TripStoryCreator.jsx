@@ -1,11 +1,13 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useTripContext } from '../../context/TripContext';
+import { useStoryContext } from '../../context/StoryContext';
 import { Navigate, Link } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import './TripStoryCreator.css';
 
 const TripStoryCreator = () => {
     const { activeTrip, updateActiveTrip } = useTripContext();
+    const { createStory, updateStory, getStoriesByTripId } = useStoryContext();
     const [storyTitle, setStoryTitle] = useState('');
     const [storyText, setStoryText] = useState('');
     const [uploadedImage, setUploadedImage] = useState(null);
@@ -29,6 +31,20 @@ const TripStoryCreator = () => {
     };
 
     const tripStory = getTripStory();
+
+    // Load existing story on mount
+    useEffect(() => {
+        if (activeTrip) {
+            const existingStories = getStoriesByTripId(activeTrip.id);
+            if (existingStories.length > 0) {
+                const story = existingStories[0];
+                setStoryTitle(story.title);
+                setGeneratedStory(story.content);
+                setImagePreview(story.image);
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTrip?.id]);
 
     // Handle image upload
     const handleImageUpload = (e) => {
@@ -153,7 +169,7 @@ const TripStoryCreator = () => {
         setStoryTitle(storyTitle || `My ${destination} Adventure`);
     };
 
-    // Save story to activeTrip
+    // Save story to activeTrip and StoryContext
     const handleSaveStory = () => {
         if (!generatedStory && !storyText) {
             alert('Please generate or write a story first');
@@ -164,12 +180,36 @@ const TripStoryCreator = () => {
             title: storyTitle || `My Trip to ${activeTrip.destination}`,
             content: generatedStory || storyText,
             image: imagePreview,
-            createdAt: tripStory.createdAt || new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
+            tripId: activeTrip.id,
+            destination: activeTrip.destination,
+            tripDates: {
+                start: activeTrip.startDate,
+                end: activeTrip.endDate,
+            },
+            travelType: activeTrip.travelType,
         };
 
-        updateActiveTrip({ tripStory: story });
-        alert('Story saved successfully!');
+        // Check if story already exists for this trip
+        const existingStories = getStoriesByTripId(activeTrip.id);
+
+        if (existingStories.length > 0) {
+            // Update existing story
+            updateStory(existingStories[0].id, story);
+            alert('Story updated successfully!');
+        } else {
+            // Create new story
+            createStory(story);
+            alert('Story saved successfully!');
+        }
+
+        // Also save to trip for backward compatibility
+        updateActiveTrip({
+            tripStory: {
+                ...story,
+                createdAt: tripStory.createdAt || new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+            }
+        });
     };
 
     // Download as PDF

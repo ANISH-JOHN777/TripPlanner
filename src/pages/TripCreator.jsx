@@ -111,7 +111,7 @@ const TripCreator = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Validate form
@@ -128,21 +128,26 @@ const TripCreator = () => {
             // Create trip data
             const tripData = {
                 destination: formData.destination,
-                startDate: formData.startDate,
-                endDate: formData.endDate,
-                travelType: formData.travelType,
+                start_date: formData.startDate,
+                end_date: formData.endDate,
+                travel_type: formData.travelType,
                 travelers: travelers,
                 status: 'planned',
             };
 
+            console.log('🚀 Creating trip with data:', tripData);
+
             // Create trip (automatically sets as activeTrip)
-            createTrip(tripData);
+            await createTrip(tripData);
+
+            console.log('✅ Trip created successfully, navigating to overview...');
 
             // Redirect to overview
             navigate('/overview');
         } catch (error) {
-            console.error('Error creating trip:', error);
+            console.error('❌ Error creating trip:', error);
             setErrors({ submit: 'Failed to create trip. Please try again.' });
+        } finally {
             setIsSubmitting(false);
         }
     };

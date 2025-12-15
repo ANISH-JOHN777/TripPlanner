@@ -1,8 +1,11 @@
 import { NavLink } from 'react-router-dom';
-import { Home, LayoutDashboard, Plus, Calendar, Ticket, Bot, Save, Settings, Globe } from 'lucide-react';
+import { Home, LayoutDashboard, Plus, Calendar, Ticket, Bot, Save, Settings, Globe, LogIn, User } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
 const Navbar = () => {
+    const { user, isAuthenticated } = useAuth();
+
     const navItems = [
         { path: '/home', label: 'Home', icon: Home },
         { path: '/overview', label: 'Overview', icon: LayoutDashboard },
@@ -36,6 +39,24 @@ const Navbar = () => {
                             </NavLink>
                         );
                     })}
+
+                    {/* Authentication Button */}
+                    <NavLink
+                        to="/auth"
+                        className={({ isActive }) => `nav-link auth-link ${isActive ? 'active' : ''}`}
+                    >
+                        {isAuthenticated ? (
+                            <>
+                                <User className="nav-icon" size={18} strokeWidth={2} />
+                                <span className="nav-label">{user?.email?.split('@')[0] || 'Profile'}</span>
+                            </>
+                        ) : (
+                            <>
+                                <LogIn className="nav-icon" size={18} strokeWidth={2} />
+                                <span className="nav-label">Sign In</span>
+                            </>
+                        )}
+                    </NavLink>
                 </div>
             </div>
         </nav>

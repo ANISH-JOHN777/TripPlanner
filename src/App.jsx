@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 import { TripProvider } from './context/TripContext';
+import { StoryProvider } from './context/StoryContext';
 import { UserProvider } from './context/UserContext';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
@@ -21,43 +23,49 @@ import SafetyAlerts from './pages/smart-tools/SafetyAlerts';
 import EmergencyHelp from './pages/smart-tools/EmergencyHelp';
 import AIChatPlanner from './pages/smart-tools/AIChatPlanner';
 import TripStoryCreator from './pages/smart-tools/TripStoryCreator';
+import Auth from './pages/Auth';
 import './App.css';
 
 function App() {
   return (
     <BrowserRouter>
-      <UserProvider>
-        <TripProvider>
-          <ScrollToTop />
-          <div className="app">
-            <Navbar />
-            <main className="app-main">
-              <Routes>
-                <Route path="/" element={<Navigate to="/home" replace />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/overview" element={<Overview />} />
-                <Route path="/trip-creator" element={<TripCreator />} />
-                <Route path="/day-planner" element={<DayPlanner />} />
-                <Route path="/saved-trips" element={<SavedTrips />} />
-                <Route path="/bookings" element={<Bookings />} />
-                <Route path="/bookings/hotels" element={<HotelFinder />} />
-                <Route path="/bookings/transport" element={<Transport />} />
-                <Route path="/bookings/restaurants" element={<Restaurants />} />
-                <Route path="/bookings/expenses" element={<ExpenseSplitter />} />
-                <Route path="/bookings/currency" element={<CurrencyConverter />} />
-                <Route path="/smart-tools" element={<SmartTools />} />
-                <Route path="/smart-tools/packing" element={<PackingList />} />
-                <Route path="/smart-tools/safety" element={<SafetyAlerts />} />
-                <Route path="/smart-tools/emergency" element={<EmergencyHelp />} />
-                <Route path="/smart-tools/ai-chat" element={<AIChatPlanner />} />
-                <Route path="/smart-tools/story" element={<TripStoryCreator />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="*" element={<Navigate to="/overview" replace />} />
-              </Routes>
-            </main>
-          </div>
-        </TripProvider>
-      </UserProvider>
+      <AuthProvider>
+        <UserProvider>
+          <TripProvider>
+            <StoryProvider>
+              <ScrollToTop />
+              <div className="app">
+                <Navbar />
+                <main className="app-main">
+                  <Routes>
+                    <Route path="/" element={<Navigate to="/home" replace />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/auth" element={<Auth />} />
+                    <Route path="/overview" element={<Overview />} />
+                    <Route path="/trip-creator" element={<TripCreator />} />
+                    <Route path="/day-planner" element={<DayPlanner />} />
+                    <Route path="/saved-trips" element={<SavedTrips />} />
+                    <Route path="/bookings" element={<Bookings />} />
+                    <Route path="/bookings/hotels" element={<HotelFinder />} />
+                    <Route path="/bookings/transport" element={<Transport />} />
+                    <Route path="/bookings/restaurants" element={<Restaurants />} />
+                    <Route path="/bookings/expenses" element={<ExpenseSplitter />} />
+                    <Route path="/bookings/currency" element={<CurrencyConverter />} />
+                    <Route path="/smart-tools" element={<SmartTools />} />
+                    <Route path="/smart-tools/packing" element={<PackingList />} />
+                    <Route path="/smart-tools/safety" element={<SafetyAlerts />} />
+                    <Route path="/smart-tools/emergency" element={<EmergencyHelp />} />
+                    <Route path="/smart-tools/ai-chat" element={<AIChatPlanner />} />
+                    <Route path="/smart-tools/story" element={<TripStoryCreator />} />
+                    <Route path="/settings" element={<Settings />} />
+                    <Route path="*" element={<Navigate to="/overview" replace />} />
+                  </Routes>
+                </main>
+              </div>
+            </StoryProvider>
+          </TripProvider>
+        </UserProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
