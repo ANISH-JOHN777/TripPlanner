@@ -79,16 +79,28 @@ const Auth = () => {
                     return;
                 }
 
-                setSuccess('Account created successfully! Redirecting...');
-                setTimeout(() => {
-                    navigate('/overview');
-                }, 1500);
+                // Check if email confirmation is required
+                if (user && !user.email_confirmed_at) {
+                    setSuccess('Account created! Please check your email to confirm your account.');
+                    // Don't redirect, show message to check email
+                } else {
+                    // Email confirmation disabled, redirect immediately
+                    setSuccess('Account created successfully! Redirecting...');
+                    setTimeout(() => {
+                        navigate('/overview');
+                    }, 1500);
+                }
             } else {
                 // Sign in
                 const { user, error } = await signIn(formData.email, formData.password);
 
                 if (error) {
-                    setError(error.message || 'Invalid email or password');
+                    // Check if it's email not confirmed error
+                    if (error.message && error.message.includes('Email not confirmed')) {
+                        setError('Please confirm your email address before signing in. Check your inbox for the confirmation link.');
+                    } else {
+                        setError(error.message || 'Invalid email or password');
+                    }
                     return;
                 }
 

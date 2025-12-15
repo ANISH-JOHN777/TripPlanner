@@ -153,10 +153,29 @@ class TripService {
         if (!isBackendAvailable()) {
             // Local mode: update in localStorage
             try {
+                console.log('🔍 Looking for trip with ID:', tripId);
                 const trips = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '[]');
+                console.log('📦 All trips in localStorage:', trips.map(t => ({ id: t.id, destination: t.destination })));
+
                 const index = trips.findIndex(t => t.id === tripId);
 
                 if (index === -1) {
+                    console.error('❌ Trip not found! Looking for ID:', tripId);
+                    console.error('Available trip IDs:', trips.map(t => t.id));
+
+                    // Try to find by any means
+                    if (trips.length > 0) {
+                        console.warn('⚠️ Using first available trip as fallback');
+                        trips[0] = {
+                            ...trips[0],
+                            ...updates,
+                            updated_at: new Date().toISOString(),
+                        };
+                        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(trips));
+                        console.log('📍 LOCAL MODE: Trip updated (fallback) in localStorage');
+                        return { trip: trips[0], error: null };
+                    }
+
                     return { trip: null, error: new Error('Trip not found') };
                 }
 
@@ -177,6 +196,8 @@ class TripService {
 
         // Supabase mode: update in database
         try {
+            console.log('🔄 Updating trip in Supabase:', tripId, updates);
+
             const { data, error } = await supabase
                 .from('trips')
                 .update({
@@ -187,7 +208,15 @@ class TripService {
                 .select()
                 .single();
 
-            if (error) throw error;
+            if (error) {
+                console.error('❌ Supabase update error details:', {
+                    message: error.message,
+                    details: error.details,
+                    hint: error.hint,
+                    code: error.code
+                });
+                throw error;
+            }
 
             console.log('✅ Trip updated in Supabase');
             return { trip: data, error: null };

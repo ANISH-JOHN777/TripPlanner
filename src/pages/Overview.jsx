@@ -11,11 +11,20 @@ const Overview = () => {
         return <Navigate to="/trip-creator" replace />;
     }
 
+    // Helper to get field value (handles both camelCase and snake_case)
+    const getField = (camelCase, snakeCase) => {
+        return activeTrip[camelCase] || activeTrip[snakeCase];
+    };
+
+    const startDate = getField('startDate', 'start_date');
+    const endDate = getField('endDate', 'end_date');
+    const travelType = getField('travelType', 'travel_type');
+
     // Calculate total days
     const calculateTotalDays = () => {
-        if (!activeTrip.startDate || !activeTrip.endDate) return 0;
-        const start = new Date(activeTrip.startDate);
-        const end = new Date(activeTrip.endDate);
+        if (!startDate || !endDate) return 0;
+        const start = new Date(startDate);
+        const end = new Date(endDate);
         const diffTime = Math.abs(end - start);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         return diffDays + 1; // Include both start and end day
@@ -23,10 +32,10 @@ const Overview = () => {
 
     // Calculate days until trip starts
     const calculateDaysUntil = () => {
-        if (!activeTrip.startDate) return null;
+        if (!startDate) return null;
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        const start = new Date(activeTrip.startDate);
+        const start = new Date(startDate);
         start.setHours(0, 0, 0, 0);
         const diffTime = start - today;
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -48,7 +57,7 @@ const Overview = () => {
             couple: { icon: Heart, label: 'Couple Trip' },
             group: { icon: Users, label: 'Group Trip' },
         };
-        return types[activeTrip.travelType] || { icon: Plane, label: 'Trip' };
+        return types[travelType] || { icon: Plane, label: 'Trip' };
     };
 
     const totalDays = calculateTotalDays();
@@ -100,7 +109,7 @@ const Overview = () => {
                     <div className="card-icon"><Calendar size={24} /></div>
                     <div className="card-content">
                         <div className="card-label">Start Date</div>
-                        <div className="card-value">{formatDate(activeTrip.startDate)}</div>
+                        <div className="card-value">{formatDate(startDate)}</div>
                     </div>
                 </div>
 
@@ -109,7 +118,7 @@ const Overview = () => {
                     <div className="card-icon"><Calendar size={24} /></div>
                     <div className="card-content">
                         <div className="card-label">End Date</div>
-                        <div className="card-value">{formatDate(activeTrip.endDate)}</div>
+                        <div className="card-value">{formatDate(endDate)}</div>
                     </div>
                 </div>
 
@@ -166,65 +175,66 @@ const Overview = () => {
             </div>
 
             {/* Day Planner Preview */}
-            {activeTrip.dayPlans && Object.keys(activeTrip.dayPlans).length > 0 && (
-                <div className="day-planner-preview-section">
-                    <div className="section-header-with-action">
-                        <h2 className="section-title">Your Itinerary</h2>
-                        <Link to="/day-planner" className="btn btn-secondary btn-sm">
-                            Edit in Day Planner <ArrowRight size={16} style={{ display: 'inline', marginLeft: '4px' }} />
-                        </Link>
-                    </div>
-                    <div className="days-preview-grid">
-                        {Object.entries(activeTrip.dayPlans)
-                            .sort(([a], [b]) => {
-                                const dayNumA = parseInt(a.replace('day', ''));
-                                const dayNumB = parseInt(b.replace('day', ''));
-                                return dayNumA - dayNumB;
-                            })
-                            .map(([dayKey, activities]) => {
-                                const dayNumber = parseInt(dayKey.replace('day', ''));
-                                const dayDate = new Date(activeTrip.startDate);
-                                dayDate.setDate(dayDate.getDate() + (dayNumber - 1));
+            {((activeTrip.day_plans && Object.keys(activeTrip.day_plans).length > 0) ||
+                (activeTrip.dayPlans && Object.keys(activeTrip.dayPlans).length > 0)) && (
+                    <div className="day-planner-preview-section">
+                        <div className="section-header-with-action">
+                            <h2 className="section-title">Your Itinerary</h2>
+                            <Link to="/day-planner" className="btn btn-secondary btn-sm">
+                                Edit in Day Planner <ArrowRight size={16} style={{ display: 'inline', marginLeft: '4px' }} />
+                            </Link>
+                        </div>
+                        <div className="days-preview-grid">
+                            {Object.entries(activeTrip.day_plans || activeTrip.dayPlans || {})
+                                .sort(([a], [b]) => {
+                                    const dayNumA = parseInt(a.replace('day', ''));
+                                    const dayNumB = parseInt(b.replace('day', ''));
+                                    return dayNumA - dayNumB;
+                                })
+                                .map(([dayKey, activities]) => {
+                                    const dayNumber = parseInt(dayKey.replace('day', ''));
+                                    const dayDate = new Date(startDate);
+                                    dayDate.setDate(dayDate.getDate() + (dayNumber - 1));
 
-                                return (
-                                    <div key={dayKey} className="day-preview-card">
-                                        <div className="day-preview-header">
-                                            <div className="day-number-badge">Day {dayNumber}</div>
-                                            <div className="day-date-text">
-                                                {dayDate.toLocaleDateString('en-IN', {
-                                                    weekday: 'short',
-                                                    month: 'short',
-                                                    day: 'numeric'
-                                                })}
+                                    return (
+                                        <div key={dayKey} className="day-preview-card">
+                                            <div className="day-preview-header">
+                                                <div className="day-number-badge">Day {dayNumber}</div>
+                                                <div className="day-date-text">
+                                                    {dayDate.toLocaleDateString('en-IN', {
+                                                        weekday: 'short',
+                                                        month: 'short',
+                                                        day: 'numeric'
+                                                    })}
+                                                </div>
+                                            </div>
+                                            <div className="activities-preview-list">
+                                                {activities && activities.length > 0 ? (
+                                                    <>
+                                                        {activities.slice(0, 3).map((activity, index) => (
+                                                            <div key={activity.id || index} className="activity-preview-item">
+                                                                {activity.time && (
+                                                                    <span className="activity-time-badge">{activity.time}</span>
+                                                                )}
+                                                                <span className="activity-name">{activity.place}</span>
+                                                            </div>
+                                                        ))}
+                                                        {activities.length > 3 && (
+                                                            <div className="more-activities">
+                                                                +{activities.length - 3} more {activities.length - 3 === 1 ? 'activity' : 'activities'}
+                                                            </div>
+                                                        )}
+                                                    </>
+                                                ) : (
+                                                    <div className="no-activities">No activities planned</div>
+                                                )}
                                             </div>
                                         </div>
-                                        <div className="activities-preview-list">
-                                            {activities && activities.length > 0 ? (
-                                                <>
-                                                    {activities.slice(0, 3).map((activity, index) => (
-                                                        <div key={activity.id || index} className="activity-preview-item">
-                                                            {activity.time && (
-                                                                <span className="activity-time-badge">{activity.time}</span>
-                                                            )}
-                                                            <span className="activity-name">{activity.place}</span>
-                                                        </div>
-                                                    ))}
-                                                    {activities.length > 3 && (
-                                                        <div className="more-activities">
-                                                            +{activities.length - 3} more {activities.length - 3 === 1 ? 'activity' : 'activities'}
-                                                        </div>
-                                                    )}
-                                                </>
-                                            ) : (
-                                                <div className="no-activities">No activities planned</div>
-                                            )}
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                                    );
+                                })}
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
 
             {/* Trip Info */}
             <div className="trip-info-section">

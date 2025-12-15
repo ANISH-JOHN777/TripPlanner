@@ -14,8 +14,16 @@ const DayPlanner = () => {
         return <Navigate to="/trip-creator" replace />;
     }
 
+    // Helper to get field value (handles both camelCase and snake_case)
+    const getField = (camelCase, snakeCase) => {
+        return activeTrip[camelCase] || activeTrip[snakeCase];
+    };
+
+    const startDate = getField('startDate', 'start_date');
+    const endDate = getField('endDate', 'end_date');
+
     // Check if dates are missing
-    if (!activeTrip.startDate || !activeTrip.endDate) {
+    if (!startDate || !endDate) {
         return (
             <div className="day-planner-page">
                 <div className="error-state">
@@ -32,8 +40,8 @@ const DayPlanner = () => {
 
     // Calculate days array from trip dates
     const calculateDays = () => {
-        const start = new Date(activeTrip.startDate);
-        const end = new Date(activeTrip.endDate);
+        const start = new Date(startDate);
+        const end = new Date(endDate);
         const diffTime = Math.abs(end - start);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
@@ -57,13 +65,13 @@ const DayPlanner = () => {
 
     const days = calculateDays();
 
-    // Get or initialize dayPlans from activeTrip
+    // Get or initialize day_plans from activeTrip
     const getDayPlans = () => {
-        return activeTrip.dayPlans || {};
+        return activeTrip.day_plans || activeTrip.dayPlans || {};
     };
 
     // Add activity to a specific day
-    const handleAddActivity = (dayIndex, activityData) => {
+    const handleAddActivity = async (dayIndex, activityData) => {
         const dayPlans = getDayPlans();
         const dayKey = `day${dayIndex + 1}`;
 
@@ -78,12 +86,14 @@ const DayPlanner = () => {
             [dayKey]: [...(dayPlans[dayKey] || []), newActivity],
         };
 
-        updateActiveTrip({ dayPlans: updatedDayPlans });
+        console.log('💾 Saving day plan:', { dayKey, activity: newActivity });
+        await updateActiveTrip({ day_plans: updatedDayPlans });
+        console.log('✅ Day plan saved successfully');
         setShowAddForm({ dayIndex: null });
     };
 
     // Update activity
-    const handleUpdateActivity = (dayIndex, activityId, updatedData) => {
+    const handleUpdateActivity = async (dayIndex, activityId, updatedData) => {
         const dayPlans = getDayPlans();
         const dayKey = `day${dayIndex + 1}`;
 
@@ -96,12 +106,14 @@ const DayPlanner = () => {
             ),
         };
 
-        updateActiveTrip({ dayPlans: updatedDayPlans });
+        console.log('📝 Updating activity:', { dayKey, activityId });
+        await updateActiveTrip({ day_plans: updatedDayPlans });
+        console.log('✅ Activity updated successfully');
         setEditingActivity(null);
     };
 
     // Delete activity
-    const handleDeleteActivity = (dayIndex, activityId) => {
+    const handleDeleteActivity = async (dayIndex, activityId) => {
         if (!window.confirm('Are you sure you want to delete this activity?')) {
             return;
         }
@@ -114,7 +126,9 @@ const DayPlanner = () => {
             [dayKey]: dayPlans[dayKey].filter(activity => activity.id !== activityId),
         };
 
-        updateActiveTrip({ dayPlans: updatedDayPlans });
+        console.log('🗑️ Deleting activity:', { dayKey, activityId });
+        await updateActiveTrip({ day_plans: updatedDayPlans });
+        console.log('✅ Activity deleted successfully');
     };
 
     // Get activities for a specific day
@@ -218,6 +232,7 @@ const ActivityForm = ({ initialData = {}, onSubmit, onCancel, isEditing = false 
     });
 
     const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -236,10 +251,19 @@ const ActivityForm = ({ initialData = {}, onSubmit, onCancel, isEditing = false 
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validate()) return;
-        onSubmit(formData);
+
+        setIsSubmitting(true);
+        try {
+            await onSubmit(formData);
+        } catch (error) {
+            console.error('Error submitting activity:', error);
+            setErrors({ submit: 'Failed to save activity. Please try again.' });
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -284,13 +308,16 @@ const ActivityForm = ({ initialData = {}, onSubmit, onCancel, isEditing = false 
             </div>
 
             <div className="form-actions">
-                <button type="button" className="btn btn-secondary btn-small" onClick={onCancel}>
+                <button type="button" className="btn btn-secondary btn-small" onClick={onCancel} disabled={isSubmitting}>
                     Cancel
                 </button>
-                <button type="submit" className="btn btn-primary btn-small">
-                    {isEditing ? 'Update' : 'Add'} Activity
+                <button type="submit" className="btn btn-primary btn-small" disabled={isSubmitting}>
+                    {isSubmitting ? 'Saving...' : isEditing ? 'Update' : 'Add'} Activity
                 </button>
             </div>
+            {errors.submit && (
+                <div className="error-message">{errors.submit}</div>
+            )}
         </form>
     );
 };

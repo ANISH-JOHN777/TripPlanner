@@ -24,6 +24,7 @@ import EmergencyHelp from './pages/smart-tools/EmergencyHelp';
 import AIChatPlanner from './pages/smart-tools/AIChatPlanner';
 import TripStoryCreator from './pages/smart-tools/TripStoryCreator';
 import Auth from './pages/Auth';
+import EmailConfirmation from './pages/EmailConfirmation';
 import './App.css';
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/" element={<Navigate to="/home" replace />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/auth" element={<Auth />} />
+                    <Route path="/auth/confirm" element={<EmailConfirmation />} />
                     <Route path="/overview" element={<Overview />} />
                     <Route path="/trip-creator" element={<TripCreator />} />
                     <Route path="/day-planner" element={<DayPlanner />} />
