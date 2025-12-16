@@ -20,13 +20,18 @@ const Home = () => {
                             manage bookings, and organize every detail of your journey—all in one place.
                         </p>
                         <div className="hero-actions">
-                            <Link to="/trip-creator" className="btn btn-primary btn-lg">
-                                Create Your Trip
+                            <Link to="/ai-trip-creator" className="btn btn-primary btn-lg">
+                                <Bot size={20} />
+                                Create Trip with AI
                             </Link>
-                            <a href="#features" className="btn btn-secondary btn-lg">
-                                View Features
-                            </a>
+                            <Link to="/trip-creator" className="btn btn-secondary btn-lg">
+                                <Edit3 size={20} />
+                                Create Trip Manually
+                            </Link>
                         </div>
+                        <p className="hero-note">
+                            <strong>AI Mode:</strong> Get instant detailed itinerary • <strong>Manual Mode:</strong> Plan step by step
+                        </p>
                         <div className="hero-stats">
                             <div className="stat-item">
                                 <span className="stat-number">10K+</span>

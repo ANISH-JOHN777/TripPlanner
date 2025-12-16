@@ -125,28 +125,22 @@ const TripCreator = () => {
             // Calculate number of travelers based on travel type
             const travelers = formData.travelType === 'solo' ? 1 : formData.travelType === 'couple' ? 2 : 4;
 
-            // Create trip data
+            // Create trip data for navigation
             const tripData = {
                 destination: formData.destination,
-                start_date: formData.startDate,
-                end_date: formData.endDate,
-                travel_type: formData.travelType,
-                travelers: travelers,
-                status: 'planned',
+                startDate: formData.startDate,
+                endDate: formData.endDate,
+                travelType: formData.travelType,
+                members: travelers,
             };
 
-            console.log('🚀 Creating trip with data:', tripData);
+            console.log('🚀 Generating trip details with data:', tripData);
 
-            // Create trip (automatically sets as activeTrip)
-            await createTrip(tripData);
-
-            console.log('✅ Trip created successfully, navigating to overview...');
-
-            // Redirect to overview
-            navigate('/overview');
+            // Navigate to trip details page with the form data
+            navigate('/trip-details', { state: { tripData } });
         } catch (error) {
-            console.error('❌ Error creating trip:', error);
-            setErrors({ submit: 'Failed to create trip. Please try again.' });
+            console.error('❌ Error:', error);
+            setErrors({ submit: 'Failed to generate trip. Please try again.' });
         } finally {
             setIsSubmitting(false);
         }
@@ -286,11 +280,11 @@ const TripCreator = () => {
                             {isSubmitting ? (
                                 <>
                                     <span className="spinner"></span>
-                                    Creating Trip...
+                                    Generating Trip...
                                 </>
                             ) : (
                                 <>
-                                    Create Trip
+                                    Generate Trip with AI
                                     <span className="btn-icon"><Sparkles size={18} /></span>
                                 </>
                             )}

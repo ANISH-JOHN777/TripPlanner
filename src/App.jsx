@@ -8,6 +8,8 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Overview from './pages/Overview';
 import TripCreator from './pages/TripCreator';
+import AITripCreator from './pages/AITripCreator';
+import TripDetails from './pages/TripDetails';
 import DayPlanner from './pages/DayPlanner';
 import SavedTrips from './pages/SavedTrips';
 import Settings from './pages/Settings';
@@ -45,6 +47,8 @@ function App() {
                     <Route path="/auth/confirm" element={<EmailConfirmation />} />
                     <Route path="/overview" element={<Overview />} />
                     <Route path="/trip-creator" element={<TripCreator />} />
+                    <Route path="/ai-trip-creator" element={<AITripCreator />} />
+                    <Route path="/trip-details" element={<TripDetails />} />
                     <Route path="/day-planner" element={<DayPlanner />} />
                     <Route path="/saved-trips" element={<SavedTrips />} />
                     <Route path="/bookings" element={<Bookings />} />
