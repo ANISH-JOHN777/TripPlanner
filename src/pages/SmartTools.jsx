@@ -1,6 +1,6 @@
 import { useTripContext } from '../context/TripContext';
 import { Navigate, Link } from 'react-router-dom';
-import { Bot, Backpack, Shield, Siren, MessageCircle, BookOpen, Sparkles, ArrowRight } from 'lucide-react';
+import { Bot, Backpack, Shield, Siren, MessageCircle, BookOpen, Sparkles, ArrowRight, Wallet, DollarSign } from 'lucide-react';
 import './SmartTools.css';
 
 const SmartTools = () => {
@@ -63,6 +63,22 @@ const SmartTools = () => {
             path: '/smart-tools/story',
             color: '#9f7aea',
         },
+        {
+            id: 'expenses',
+            title: 'Expense Splitter',
+            icon: Wallet,
+            description: 'Split expenses with travel companions',
+            path: '/smart-tools/expenses',
+            color: '#f59e0b',
+        },
+        {
+            id: 'currency',
+            title: 'Currency Converter',
+            icon: DollarSign,
+            description: 'Convert currencies for your trip',
+            path: '/smart-tools/currency',
+            color: '#38b2ac',
+        },
     ];
 
     return (
@@ -100,11 +116,6 @@ const SmartTools = () => {
                         </Link>
                     );
                 })}
-            </div>
-
-            <div className="ai-badge">
-                <span className="badge-icon"><Sparkles size={20} /></span>
-                <span className="badge-text">Powered by AI</span>
             </div>
         </div>
     );

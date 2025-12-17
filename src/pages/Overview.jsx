@@ -1,6 +1,6 @@
 import { useTripContext } from '../context/TripContext';
 import { Link, Navigate } from 'react-router-dom';
-import { Luggage, Heart, Users, Plane, Clock, PartyPopper, Calendar, CalendarDays, ClipboardList, Save, Sparkles, ArrowRight } from 'lucide-react';
+import { Luggage, Heart, Users, Plane, Clock, PartyPopper, Calendar, CalendarDays, ClipboardList, Save, Sparkles, ArrowRight, Route } from 'lucide-react';
 import './Overview.css';
 
 const Overview = () => {
@@ -139,6 +139,17 @@ const Overview = () => {
                         <div className="card-value">{activeTrip.travelers || 1}</div>
                     </div>
                 </div>
+
+                {/* Total Distance Card */}
+                {activeTrip.totalKm && (
+                    <div className="detail-card highlight">
+                        <div className="card-icon"><Route size={24} /></div>
+                        <div className="card-content">
+                            <div className="card-label">Total Distance</div>
+                            <div className="card-value">{activeTrip.totalKm} km</div>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Quick Actions */}
@@ -255,6 +266,12 @@ const Overview = () => {
                                 {(activeTrip.status || 'planned').charAt(0).toUpperCase() + (activeTrip.status || 'planned').slice(1)}
                             </span>
                         </div>
+                        {activeTrip.totalKm && (
+                            <div className="info-row">
+                                <span className="info-label">Total Distance:</span>
+                                <span className="info-value">{activeTrip.totalKm} km</span>
+                            </div>
+                        )}
                         <div className="info-row">
                             <span className="info-label">Created:</span>
                             <span className="info-value">

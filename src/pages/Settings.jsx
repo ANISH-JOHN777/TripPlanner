@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUserContext } from '../context/UserContext';
 import { useTripContext } from '../context/TripContext';
 import { storageService } from '../services/storageService';
@@ -8,6 +8,15 @@ const Settings = () => {
     const { user, preferences, updatePreferences } = useUserContext();
     const { trips, clearAllTrips } = useTripContext();
     const [showConfirm, setShowConfirm] = useState(false);
+
+    // Apply theme changes
+    useEffect(() => {
+        const theme = preferences.theme || 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+
+        // Store theme preference
+        localStorage.setItem('theme', theme);
+    }, [preferences.theme]);
 
     const handleExportData = () => {
         const success = storageService.exportTrips(trips);

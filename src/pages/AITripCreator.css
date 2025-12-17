@@ -147,6 +147,12 @@
     color: #6b7280;
 }
 
+.option-description {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-align: center;
+}
+
 /* Submit Button */
 .btn-large {
     width: 100%;

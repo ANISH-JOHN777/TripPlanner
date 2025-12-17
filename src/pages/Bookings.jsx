@@ -1,6 +1,6 @@
 import { useTripContext } from '../context/TripContext';
 import { Navigate, Link } from 'react-router-dom';
-import { Hotel, Plane, UtensilsCrossed, Wallet, DollarSign, ArrowRight } from 'lucide-react';
+import { Hotel, Plane, UtensilsCrossed, ArrowRight, Home, Palmtree, Package } from 'lucide-react';
 import './Bookings.css';
 
 const Bookings = () => {
@@ -21,6 +21,22 @@ const Bookings = () => {
             color: '#667eea',
         },
         {
+            id: 'airbnb',
+            title: 'Airbnb',
+            icon: Home,
+            description: 'Discover unique stays and experiences',
+            path: '/bookings/airbnb',
+            color: '#ff5a5f',
+        },
+        {
+            id: 'resorts',
+            title: 'Resorts',
+            icon: Palmtree,
+            description: 'Luxury resorts and beach properties',
+            path: '/bookings/resorts',
+            color: '#10b981',
+        },
+        {
             id: 'transport',
             title: 'Transport',
             icon: Plane,
@@ -37,20 +53,12 @@ const Bookings = () => {
             color: '#ed8936',
         },
         {
-            id: 'expenses',
-            title: 'Expense Splitter',
-            icon: Wallet,
-            description: 'Split expenses with travel companions',
-            path: '/bookings/expenses',
-            color: '#9f7aea',
-        },
-        {
-            id: 'currency',
-            title: 'Currency Converter',
-            icon: DollarSign,
-            description: 'Convert currencies for your trip',
-            path: '/bookings/currency',
-            color: '#38b2ac',
+            id: 'packages',
+            title: 'Tour Packages',
+            icon: Package,
+            description: 'All-inclusive tour packages',
+            path: '/bookings/packages',
+            color: '#8b5cf6',
         },
     ];
 

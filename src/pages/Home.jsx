@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import {
     MapPin, Bot, Edit3, Save, Calendar, Globe, Users, Hotel,
-    DollarSign, Map, BookOpen, Smartphone, RefreshCw, Sparkles
+    DollarSign, Map, BookOpen, Smartphone, RefreshCw, Sparkles, CheckCircle
 } from 'lucide-react';
 import './Home.css';
 
@@ -28,9 +28,13 @@ const Home = () => {
                                 <Edit3 size={20} />
                                 Create Trip Manually
                             </Link>
+                            <Link to="/complete-trip-setup" className="btn btn-primary btn-lg">
+                                <CheckCircle size={20} />
+                                Complete Trip Setup
+                            </Link>
                         </div>
                         <p className="hero-note">
-                            <strong>AI Mode:</strong> Get instant detailed itinerary • <strong>Manual Mode:</strong> Plan step by step
+                            <strong>AI Mode:</strong> Get instant detailed itinerary • <strong>Manual Mode:</strong> Plan step by step • <strong>Complete Setup:</strong> All-in-one trip configuration
                         </p>
                         <div className="hero-stats">
                             <div className="stat-item">

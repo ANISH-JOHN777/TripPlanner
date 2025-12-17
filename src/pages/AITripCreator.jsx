@@ -17,6 +17,7 @@ const AITripCreator = () => {
         startDate: '',
         endDate: '',
         travelType: 'solo',
+        transportMode: 'own',
     });
 
     const [errors, setErrors] = useState({});
@@ -46,6 +47,12 @@ const AITripCreator = () => {
         { value: 'solo', label: 'Solo', icon: '🧳', members: 1 },
         { value: 'couple', label: 'Couple', icon: '❤️', members: 2 },
         { value: 'group', label: 'Group', icon: '👥', members: 4 },
+    ];
+
+    const transportModes = [
+        { value: 'own', label: 'Own Vehicle', icon: '🚗', description: 'Using your own car/bike' },
+        { value: 'rented', label: 'Rented Vehicle', icon: '🚙', description: 'Rent a car or bike' },
+        { value: 'public', label: 'Public Transport', icon: '🚌', description: 'Buses, trains, metro' },
     ];
 
     const handleChange = (e) => {
@@ -149,6 +156,7 @@ const AITripCreator = () => {
                 start_date: formData.startDate,
                 end_date: formData.endDate,
                 travel_type: formData.travelType,
+                transport_mode: formData.transportMode,
                 travelers: travelers,
                 status: 'planned',
             };
@@ -289,6 +297,34 @@ const AITripCreator = () => {
                                             <span className="option-icon">{type.icon}</span>
                                             <span className="option-label">{type.label}</span>
                                             <span className="option-members">{type.members} {type.members === 1 ? 'Person' : 'People'}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Transport Mode */}
+                            <div className="form-group">
+                                <label>
+                                    <Car size={18} />
+                                    Transport Mode
+                                </label>
+                                <div className="travel-type-options">
+                                    {transportModes.map(mode => (
+                                        <label
+                                            key={mode.value}
+                                            className={`travel-option ${formData.transportMode === mode.value ? 'selected' : ''}`}
+                                        >
+                                            <input
+                                                type="radio"
+                                                name="transportMode"
+                                                value={mode.value}
+                                                checked={formData.transportMode === mode.value}
+                                                onChange={handleChange}
+                                                disabled={isGenerating}
+                                            />
+                                            <span className="option-icon">{mode.icon}</span>
+                                            <span className="option-label">{mode.label}</span>
+                                            <span className="option-description">{mode.description}</span>
                                         </label>
                                     ))}
                                 </div>

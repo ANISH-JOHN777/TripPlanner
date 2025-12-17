@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTripContext } from '../context/TripContext';
-import { Luggage, Heart, Users, MapPin, Calendar, AlertTriangle, Sparkles, Target, Wallet, Smartphone, Map } from 'lucide-react';
+import { Luggage, Heart, Users, MapPin, Calendar, AlertTriangle, Sparkles, Target, Wallet, Smartphone, Map, Car } from 'lucide-react';
 import './TripCreator.css';
 
 const TripCreator = () => {
@@ -13,6 +13,7 @@ const TripCreator = () => {
         startDate: '',
         endDate: '',
         travelType: 'solo',
+        transportMode: 'own', // 'own', 'rented', 'public'
     });
 
     const [errors, setErrors] = useState({});
@@ -47,6 +48,12 @@ const TripCreator = () => {
         { value: 'solo', label: 'Solo', icon: Luggage, description: 'Traveling alone' },
         { value: 'couple', label: 'Couple', icon: Heart, description: 'Traveling with partner' },
         { value: 'group', label: 'Group', icon: Users, description: 'Traveling with friends/family' },
+    ];
+
+    const transportModes = [
+        { value: 'own', label: 'Own Vehicle', icon: Car, description: 'Using your own car/bike' },
+        { value: 'rented', label: 'Rented Vehicle', icon: Car, description: 'Rent a car or bike' },
+        { value: 'public', label: 'Public Transport', icon: Map, description: 'Buses, trains, metro' },
     ];
 
     const handleChange = (e) => {
@@ -131,6 +138,7 @@ const TripCreator = () => {
                 startDate: formData.startDate,
                 endDate: formData.endDate,
                 travelType: formData.travelType,
+                transportMode: formData.transportMode,
                 members: travelers,
             };
 
@@ -259,6 +267,40 @@ const TripCreator = () => {
                         </div>
                         {errors.travelType && (
                             <span className="error-message">{errors.travelType}</span>
+                        )}
+                    </div>
+
+                    {/* Transport Mode Selection */}
+                    <div className="form-group">
+                        <label className="form-label">
+                            <span className="label-icon"><Car size={18} /></span>
+                            Transport Mode
+                        </label>
+                        <div className="travel-type-grid">
+                            {transportModes.map(mode => (
+                                <label
+                                    key={mode.value}
+                                    className={`travel-type-card ${formData.transportMode === mode.value ? 'selected' : ''} ${isSubmitting ? 'disabled' : ''}`}
+                                >
+                                    <input
+                                        type="radio"
+                                        name="transportMode"
+                                        value={mode.value}
+                                        checked={formData.transportMode === mode.value}
+                                        onChange={handleChange}
+                                        disabled={isSubmitting}
+                                        className="travel-type-input"
+                                    />
+                                    <div className="travel-type-icon">
+                                        <mode.icon size={32} />
+                                    </div>
+                                    <div className="travel-type-label">{mode.label}</div>
+                                    <div className="travel-type-description">{mode.description}</div>
+                                </label>
+                            ))}
+                        </div>
+                        {errors.transportMode && (
+                            <span className="error-message">{errors.transportMode}</span>
                         )}
                     </div>
 

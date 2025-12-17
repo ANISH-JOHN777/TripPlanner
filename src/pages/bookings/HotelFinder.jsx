@@ -1,11 +1,14 @@
 import { useTripContext } from '../../context/TripContext';
 import { Navigate, Link } from 'react-router-dom';
-import { Hotel, MapPin, Star, Wifi, Utensils } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Hotel, MapPin, Star, Wifi, Utensils, Search } from 'lucide-react';
 import { getMockHotels } from '../../utils/mockData';
 import './HotelFinder.css';
 
 const HotelFinder = () => {
     const { activeTrip } = useTripContext();
+    const [searchQuery, setSearchQuery] = useState('');
+    const [priceFilter, setPriceFilter] = useState('best'); // 'lower', 'best', 'higher'
 
     if (!activeTrip) {
         return <Navigate to="/trip-creator" replace />;
@@ -23,7 +26,38 @@ const HotelFinder = () => {
     const nights = calculateNights();
 
     // Get location-based mock hotels
-    const hotels = getMockHotels(activeTrip.destination);
+    const allHotels = getMockHotels(activeTrip.destination);
+
+    // Filter and sort hotels
+    const filteredHotels = useMemo(() => {
+        let filtered = allHotels;
+
+        // Search filter
+        if (searchQuery.trim()) {
+            filtered = filtered.filter(hotel =>
+                hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                hotel.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                hotel.type.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
+
+        // Price sorting
+        const sorted = [...filtered].sort((a, b) => {
+            if (priceFilter === 'lower') {
+                return a.price - b.price; // Lowest first
+            } else if (priceFilter === 'higher') {
+                return b.price - a.price; // Highest first
+            } else {
+                // 'best' - sort by rating, then by price
+                if (b.rating !== a.rating) {
+                    return b.rating - a.rating;
+                }
+                return a.price - b.price;
+            }
+        });
+
+        return sorted;
+    }, [allHotels, searchQuery, priceFilter]);
 
     return (
         <div className="hotel-finder-page">
@@ -63,14 +97,49 @@ const HotelFinder = () => {
                 </div>
             </div>
 
+            {/* Search and Filter Section */}
+            <div className="search-filter-section">
+                <div className="search-bar">
+                    <Search size={20} />
+                    <input
+                        type="text"
+                        placeholder="Search by hotel name, location, or type..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="search-input"
+                    />
+                </div>
+                <div className="filter-buttons">
+                    <span className="filter-label">Sort by:</span>
+                    <button
+                        className={`filter-btn ${priceFilter === 'lower' ? 'active' : ''}`}
+                        onClick={() => setPriceFilter('lower')}
+                    >
+                        Lower Price
+                    </button>
+                    <button
+                        className={`filter-btn ${priceFilter === 'best' ? 'active' : ''}`}
+                        onClick={() => setPriceFilter('best')}
+                    >
+                        Best Price
+                    </button>
+                    <button
+                        className={`filter-btn ${priceFilter === 'higher' ? 'active' : ''}`}
+                        onClick={() => setPriceFilter('higher')}
+                    >
+                        Higher Price
+                    </button>
+                </div>
+            </div>
+
             <div className="results-section">
                 <div className="results-header">
-                    <h3>{hotels.length} Hotels Found in {activeTrip.destination}</h3>
+                    <h3>{filteredHotels.length} Hotels Found in {activeTrip.destination}</h3>
                     <p className="results-note">Showing available hotels for your dates</p>
                 </div>
 
                 <div className="hotels-grid">
-                    {hotels.map(hotel => (
+                    {filteredHotels.map(hotel => (
                         <div key={hotel.id} className="hotel-card">
                             <div className="hotel-image">
                                 <div className="hotel-type-badge">{hotel.type}</div>

@@ -55,6 +55,23 @@ export const mockTripData = {
             { mode: 'Taxi/Uber', cost: '₹200-800/trip', description: 'Comfortable door-to-door' },
             { mode: 'Auto Rickshaw', cost: '₹50-300/trip', description: 'Good for short distances' }
         ],
+        airbnb: [
+            { name: 'Sea View Apartment', type: 'Entire Apartment', price: '₹5,000/night', rating: 4.7, location: 'Marine Drive', amenities: ['WiFi', 'Kitchen', 'Sea View'] },
+            { name: 'Colaba Heritage Home', type: 'Private Room', price: '₹3,500/night', rating: 4.5, location: 'Colaba', amenities: ['WiFi', 'Breakfast', 'Historic'] },
+            { name: 'Bandra Studio Loft', type: 'Entire Studio', price: '₹4,200/night', rating: 4.6, location: 'Bandra West', amenities: ['WiFi', 'Kitchen', 'Gym'] },
+            { name: 'Juhu Beach Villa', type: 'Entire Villa', price: '₹12,000/night', rating: 4.9, location: 'Juhu', amenities: ['Pool', 'Garden', 'Beach Access'] }
+        ],
+        resorts: [
+            { name: 'The Resort Mumbai', type: 'Beach Resort', price: '₹15,000/night', rating: 4.6, location: 'Madh Island', facilities: ['Pool', 'Spa', 'Restaurant', 'Beach'] },
+            { name: 'Courtyard by Marriott', type: 'Business Resort', price: '₹12,000/night', rating: 4.5, location: 'Navi Mumbai', facilities: ['Pool', 'Gym', 'Conference'] },
+            { name: 'Della Resorts', type: 'Adventure Resort', price: '₹18,000/night', rating: 4.7, location: 'Lonavala (90km)', facilities: ['Adventure Park', 'Spa', 'Pool'] }
+        ],
+        tourPackages: [
+            { name: 'Mumbai Heritage Tour', duration: '1 Day', price: '₹2,500/person', rating: 4.6, includes: ['Guide', 'Transport', 'Entry Fees'], highlights: 'Gateway, CST, Marine Drive' },
+            { name: 'Bollywood Studio Tour', duration: '4 Hours', price: '₹1,800/person', rating: 4.7, includes: ['Studio Visit', 'Guide', 'Transport'], highlights: 'Film City, Sets, Celebrity Spots' },
+            { name: 'Mumbai Food Walk', duration: '3 Hours', price: '₹1,200/person', rating: 4.8, includes: ['Food Tastings', 'Guide'], highlights: 'Street Food, Local Cuisine' },
+            { name: 'Elephanta Caves Package', duration: 'Half Day', price: '₹2,000/person', rating: 4.5, includes: ['Ferry', 'Guide', 'Entry'], highlights: 'UNESCO Site, Ancient Temples' }
+        ],
         estimatedBudget: {
             solo: { min: 15000, max: 40000 },
             couple: { min: 30000, max: 80000 },
@@ -127,6 +144,25 @@ export const mockTripData = {
             { mode: 'Bus', cost: '₹10-50/trip', description: 'Economical local transport' },
             { mode: 'Bike Rental', cost: '₹400-800/day', description: 'For adventure seekers' }
         ],
+        airbnb: [
+            { name: 'Beach Shack Villa', type: 'Entire Villa', price: '₹8,000/night', rating: 4.8, location: 'Anjuna', amenities: ['Beach Access', 'Pool', 'Kitchen'] },
+            { name: 'Portuguese Heritage House', type: 'Entire House', price: '₹6,500/night', rating: 4.7, location: 'Fontainhas, Panjim', amenities: ['WiFi', 'Balcony', 'Historic'] },
+            { name: 'Palolem Beach Cottage', type: 'Private Room', price: '₹3,000/night', rating: 4.6, location: 'Palolem', amenities: ['Beach View', 'Garden', 'Breakfast'] },
+            { name: 'Luxury Villa with Pool', type: 'Entire Villa', price: '₹15,000/night', rating: 4.9, location: 'Vagator', amenities: ['Private Pool', 'Chef', 'Sea View'] }
+        ],
+        resorts: [
+            { name: 'Taj Exotica Resort', type: 'Beach Resort', price: '₹18,000/night', rating: 4.7, location: 'Benaulim', facilities: ['Beach', 'Spa', 'Pool', 'Water Sports'] },
+            { name: 'Alila Diwa Goa', type: 'Luxury Resort', price: '₹16,000/night', rating: 4.6, location: 'Majorda', facilities: ['Spa', 'Pool', 'Yoga', 'Restaurant'] },
+            { name: 'The Leela Goa', type: 'Beach Resort', price: '₹20,000/night', rating: 4.8, location: 'Cavelossim', facilities: ['Golf', 'Spa', 'Beach', 'Casino'] },
+            { name: 'Planet Hollywood Beach Resort', type: 'Entertainment Resort', price: '₹14,000/night', rating: 4.5, location: 'Utorda', facilities: ['Pool', 'Entertainment', 'Beach'] }
+        ],
+        tourPackages: [
+            { name: 'North Goa Beach Hopping', duration: '1 Day', price: '₹2,000/person', rating: 4.7, includes: ['Transport', 'Guide', 'Lunch'], highlights: 'Calangute, Baga, Anjuna Beaches' },
+            { name: 'Dudhsagar Waterfall Adventure', duration: '1 Day', price: '₹3,500/person', rating: 4.8, includes: ['Jeep Safari', 'Guide', 'Entry', 'Lunch'], highlights: 'Waterfall, Spice Plantation' },
+            { name: 'Goa Heritage & Culture Tour', duration: 'Half Day', price: '₹1,500/person', rating: 4.5, includes: ['Transport', 'Guide', 'Entry Fees'], highlights: 'Old Goa Churches, Museums' },
+            { name: 'Sunset Cruise with Dinner', duration: '3 Hours', price: '₹2,500/person', rating: 4.6, includes: ['Cruise', 'Dinner', 'Entertainment'], highlights: 'Mandovi River, Live Music' },
+            { name: 'Water Sports Package', duration: '4 Hours', price: '₹4,000/person', rating: 4.7, includes: ['Parasailing', 'Jet Ski', 'Banana Ride'], highlights: 'Multiple Water Activities' }
+        ],
         estimatedBudget: {
             solo: { min: 12000, max: 35000 },
             couple: { min: 25000, max: 70000 },
@@ -183,6 +219,30 @@ export const mockTripData = {
             { name: 'Taj Jai Mahal Palace', type: 'Luxury', price: '₹22,000/night', rating: 4.7, location: 'Jacob Road' },
             { name: 'Alsisar Haveli', type: 'Mid-range', price: '₹6,000/night', rating: 4.4, location: 'Sansar Chandra Road' },
             { name: 'Zostel Jaipur', type: 'Budget', price: '₹600/night', rating: 4.2, location: 'MI Road' }
+        ],
+        airbnb: [
+            { id: 1, name: 'Heritage Haveli Stay', type: 'Entire Home', price: '₹4,500/night', rating: 4.7, location: 'Old City', amenities: ['WiFi', 'Kitchen', 'AC', 'Traditional Decor'] },
+            { id: 2, name: 'Pink City Apartment', type: 'Entire Apartment', price: '₹3,200/night', rating: 4.5, location: 'C-Scheme', amenities: ['WiFi', 'Parking', 'AC', 'Modern'] },
+            { id: 3, name: 'Cozy Room near Hawa Mahal', type: 'Private Room', price: '₹1,800/night', rating: 4.3, location: 'Johri Bazaar', amenities: ['WiFi', 'Breakfast', 'AC'] },
+            { id: 4, name: 'Luxury Villa with Pool', type: 'Entire Villa', price: '₹12,000/night', rating: 4.9, location: 'Vaishali Nagar', amenities: ['Pool', 'WiFi', 'Kitchen', 'Garden', 'AC'] },
+            { id: 5, name: 'Budget Hostel Dorm', type: 'Shared Room', price: '₹500/night', rating: 4.1, location: 'Bani Park', amenities: ['WiFi', 'Common Area', 'Lockers'] },
+            { id: 6, name: 'Artistic Loft', type: 'Entire Loft', price: '₹5,500/night', rating: 4.6, location: 'Malviya Nagar', amenities: ['WiFi', 'Workspace', 'AC', 'Art Studio'] }
+        ],
+        resorts: [
+            { id: 1, name: 'Rambagh Palace', type: 'Heritage Palace', price: '₹35,000/night', rating: 4.9, location: 'Bhawani Singh Road', facilities: ['Spa', 'Pool', 'Fine Dining', 'Heritage Tours', 'Butler Service'] },
+            { id: 2, name: 'Fairmont Jaipur', type: 'Luxury Resort', price: '₹18,000/night', rating: 4.8, location: 'Kukas', facilities: ['Spa', 'Pool', 'Golf Course', 'Multiple Restaurants'] },
+            { id: 3, name: 'Samode Palace', type: 'Heritage Resort', price: '₹22,000/night', rating: 4.7, location: 'Samode', facilities: ['Pool', 'Heritage Rooms', 'Cultural Shows', 'Dining'] },
+            { id: 4, name: 'Tree of Life Resort', type: 'Eco Resort', price: '₹8,500/night', rating: 4.5, location: 'Kukas', facilities: ['Organic Farm', 'Pool', 'Yoga', 'Nature Walks'] },
+            { id: 5, name: 'Chokhi Dhani Resort', type: 'Cultural Resort', price: '₹6,000/night', rating: 4.4, location: 'Tonk Road', facilities: ['Cultural Village', 'Traditional Food', 'Shows', 'Activities'] },
+            { id: 6, name: 'Lohagarh Fort Resort', type: 'Fort Resort', price: '₹12,000/night', rating: 4.6, location: 'Kukas', facilities: ['Fort Setting', 'Pool', 'Spa', 'Adventure Activities'] }
+        ],
+        tourPackages: [
+            { id: 1, name: 'Royal Jaipur Heritage Tour', duration: '3 Days / 2 Nights', price: '₹15,000', rating: 4.8, inclusions: ['Hotels', 'Meals', 'Transport', 'Guide'], highlights: ['Amber Fort', 'City Palace', 'Hawa Mahal', 'Jantar Mantar'] },
+            { id: 2, name: 'Pink City Explorer', duration: '2 Days / 1 Night', price: '₹8,500', rating: 4.6, inclusions: ['Hotel', 'Breakfast', 'Transport'], highlights: ['City Tour', 'Shopping', 'Local Cuisine'] },
+            { id: 3, name: 'Jaipur Cultural Experience', duration: '4 Days / 3 Nights', price: '₹22,000', rating: 4.7, inclusions: ['Luxury Hotel', 'All Meals', 'Transport', 'Cultural Shows'], highlights: ['Forts', 'Palaces', 'Folk Dance', 'Rajasthani Dinner'] },
+            { id: 4, name: 'Weekend Getaway', duration: '2 Days / 1 Night', price: '₹6,000', rating: 4.4, inclusions: ['Hotel', 'Breakfast', 'Sightseeing'], highlights: ['Major Attractions', 'Local Markets'] },
+            { id: 5, name: 'Luxury Palace Stay', duration: '3 Days / 2 Nights', price: '₹45,000', rating: 4.9, inclusions: ['Palace Hotel', 'All Meals', 'Private Car', 'Butler'], highlights: ['Royal Experience', 'Heritage Sites', 'Fine Dining'] },
+            { id: 6, name: 'Budget Backpacker Special', duration: '3 Days / 2 Nights', price: '₹5,500', rating: 4.3, inclusions: ['Hostel', 'Breakfast', 'Group Tours'], highlights: ['Major Forts', 'Street Food', 'Local Markets'] }
         ],
         transport: [
             { mode: 'Auto Rickshaw', cost: '₹50-200/trip', description: 'Most common local transport' },
@@ -253,6 +313,30 @@ export const mockTripData = {
             { name: 'Manu Allaya Resort', type: 'Luxury', price: '₹10,000/night', rating: 4.5, location: 'Sunny Side' },
             { name: 'Apple Country Resort', type: 'Mid-range', price: '₹4,500/night', rating: 4.3, location: 'Log Huts Area' },
             { name: 'Zostel Manali', type: 'Budget', price: '₹700/night', rating: 4.1, location: 'Old Manali' }
+        ],
+        airbnb: [
+            { id: 1, name: 'Mountain View Cottage', type: 'Entire Cottage', price: '₹5,500/night', rating: 4.8, location: 'Old Manali', amenities: ['Mountain View', 'Fireplace', 'WiFi', 'Kitchen'] },
+            { id: 2, name: 'Riverside Cabin', type: 'Entire Cabin', price: '₹4,200/night', rating: 4.6, location: 'Vashisht', amenities: ['River View', 'Heating', 'WiFi', 'Balcony'] },
+            { id: 3, name: 'Cozy Studio in Mall Road', type: 'Entire Studio', price: '₹2,800/night', rating: 4.4, location: 'Mall Road', amenities: ['Central Location', 'WiFi', 'Heating'] },
+            { id: 4, name: 'Luxury Chalet with Hot Tub', type: 'Entire Chalet', price: '₹15,000/night', rating: 4.9, location: 'Prini', amenities: ['Hot Tub', 'Mountain View', 'Fireplace', 'Kitchen', 'WiFi'] },
+            { id: 5, name: 'Backpacker Hostel Room', type: 'Shared Room', price: '₹600/night', rating: 4.2, location: 'Old Manali', amenities: ['Common Kitchen', 'WiFi', 'Bonfire Area'] },
+            { id: 6, name: 'Traditional Himachali Home', type: 'Private Room', price: '₹2,000/night', rating: 4.5, location: 'Naggar', amenities: ['Authentic Experience', 'Home-cooked Meals', 'WiFi'] }
+        ],
+        resorts: [
+            { id: 1, name: 'The Himalayan', type: 'Luxury Resort', price: '₹25,000/night', rating: 4.9, location: 'Hadimba Road', facilities: ['Spa', 'Heated Pool', 'Fine Dining', 'Mountain Views', 'Adventure Sports'] },
+            { id: 2, name: 'Solang Valley Resort', type: 'Adventure Resort', price: '₹12,000/night', rating: 4.7, location: 'Solang Valley', facilities: ['Skiing', 'Paragliding', 'Restaurant', 'Bonfire'] },
+            { id: 3, name: 'Span Resort', type: 'Riverside Resort', price: '₹18,000/night', rating: 4.8, location: 'Kullu-Manali Highway', facilities: ['River Rafting', 'Spa', 'Multi-cuisine Restaurant', 'Activities'] },
+            { id: 4, name: 'Apple Country Resort', type: 'Eco Resort', price: '₹8,500/night', rating: 4.5, location: 'Naggar', facilities: ['Apple Orchards', 'Organic Food', 'Yoga', 'Nature Walks'] },
+            { id: 5, name: 'Snow Valley Resorts', type: 'Mountain Resort', price: '₹10,000/night', rating: 4.6, location: 'Solang', facilities: ['Snow Activities', 'Restaurant', 'Bonfire', 'Adventure Sports'] },
+            { id: 6, name: 'Manu Allaya Resort', type: 'Boutique Resort', price: '₹20,000/night', rating: 4.8, location: 'Log Huts Area', facilities: ['Spa', 'Fine Dining', 'Library', 'Mountain Views'] }
+        ],
+        tourPackages: [
+            { id: 1, name: 'Manali Adventure Package', duration: '4 Days / 3 Nights', price: '₹18,000', rating: 4.8, inclusions: ['Hotel', 'Meals', 'Transport', 'Activities'], highlights: ['Rohtang Pass', 'Solang Valley', 'Paragliding', 'River Rafting'] },
+            { id: 2, name: 'Honeymoon Special', duration: '3 Days / 2 Nights', price: '₹25,000', rating: 4.9, inclusions: ['Luxury Hotel', 'Candlelight Dinner', 'Transport', 'Sightseeing'], highlights: ['Romantic Locations', 'Private Tours', 'Special Amenities'] },
+            { id: 3, name: 'Kasol-Manali Combo', duration: '5 Days / 4 Nights', price: '₹22,000', rating: 4.7, inclusions: ['Hotels', 'Breakfast', 'Transport'], highlights: ['Kasol', 'Manikaran', 'Manali Sightseeing', 'Trekking'] },
+            { id: 4, name: 'Budget Backpacker Trip', duration: '3 Days / 2 Nights', price: '₹7,500', rating: 4.4, inclusions: ['Hostel', 'Breakfast', 'Local Transport'], highlights: ['Old Manali', 'Vashisht', 'Local Cafes'] },
+            { id: 5, name: 'Winter Snow Package', duration: '4 Days / 3 Nights', price: '₹20,000', rating: 4.8, inclusions: ['Hotel', 'Meals', 'Snow Activities', 'Transport'], highlights: ['Skiing', 'Snowboarding', 'Snow Trekking', 'Rohtang'] },
+            { id: 6, name: 'Family Fun Package', duration: '4 Days / 3 Nights', price: '₹35,000', rating: 4.6, inclusions: ['Family Rooms', 'All Meals', 'Transport', 'Activities'], highlights: ['Kid-friendly Activities', 'Sightseeing', 'Adventure Sports'] }
         ],
         transport: [
             { mode: 'Taxi (Full Day)', cost: '₹2,500-4,000/day', description: 'Best for sightseeing' },
